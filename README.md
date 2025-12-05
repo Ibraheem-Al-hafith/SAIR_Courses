@@ -571,10 +571,10 @@ Create your own deep learning library that can:
 🎯<br/><strong>Train on<br/>MNIST</strong>
 </td>
 <td align="center" width="25%">
-🏗️<br/><strong>Multiple<br/>Layer Types</strong>
+🏗️<strong>Multiple<br/>Layer Types</strong>
 </td>
 <td align="center" width="25%">
-⚙️<br/><strong>Various<br/>Optimizers</strong>
+⚙️<strong>Various<br/>Optimizers</strong>
 </td>
 <td align="center" width="25%">
 📊<br/><strong>95%+<br/>Accuracy</strong>
@@ -813,23 +813,288 @@ Personalization AI
 │                         📊 YOUR SKILLS GROWTH                            │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                          │
-│  🐍 Month 1-2:  Python • Pandas • Matplotlib • NumPy • Git              │
+│  🐍 Level 1:  Python • Pandas • Matplotlib • NumPy • Git              │
 │                 ████████████░░░░░░░░░░░░░░░░░░░░░░░░ 30%               │
 │                                                                          │
-│  🤖 Month 3-4:  Scikit-learn • MLflow • Streamlit • Gradio              │
+│  🤖 Level 2:  Scikit-learn • MLflow • Streamlit • Gradio              │
 │                 ████████████████████░░░░░░░░░░░░░░░░ 50%               │
 │                                                                          │
-│  🧠 Month 5-6:  NumPy NN • Math • Optimization • Backprop               │
+│  🧠 Level 3:  NumPy NN • Math • Optimization • Backprop               │
 │                 ████████████████████████████░░░░░░░░ 70%               │
 │                                                                          │
-│  🔥 Month 7-8:  PyTorch • CNN • RNN • Transformers                      │
+│  🔥 Level 4:  PyTorch • CNN • RNN • Transformers                      │
 │                 ████████████████████████████████████░ 85%               │
 │                                                                          │
-│  🐳 Month 9-10: Docker • Kubernetes • Cloud • Monitoring                │
+│  🐳 Level 5: Docker • Kubernetes • Cloud • Monitoring                │
 │                 ████████████████████████████████████████ 100%           │
 │                                                                          │
 └─────────────────────────────────────────────────────────────────────────┘
 ```
+
+</div>
+
+---
+
+## 📚 SAIR Library: Essential Learning Resources
+
+<div align="center">
+
+### **📖 Curated Knowledge Repository for Your AI Journey**
+
+> "All books are provided free of charge by SAIR upon request. Simply ask in our community channels!"
+
+</div>
+
+### **📚 Resource Categories**
+
+<div align="center">
+
+<table>
+<tr>
+<td align="center" width="33%">
+<h3>📘 <strong>Mandatory</strong></h3>
+Core reading for certification<br/>
+<em>Essential for all learners</em>
+</td>
+<td align="center" width="33%">
+<h3>📗 <strong>Book Club</strong></h3>
+Community reading & discussions<br/>
+<em>Weekly group sessions</em>
+</td>
+<td align="center" width="33%">
+<h3>📙 <strong>Reference</strong></h3>
+Quick lookups & deep dives<br/>
+<em>Keep on your digital shelf</em>
+</td>
+</tr>
+</table>
+
+</div>
+
+### **📖 Essential Books for SAIR Jr. Certification**
+
+<div align="center">
+
+<table>
+<thead>
+<tr>
+<th width="25%">Book</th>
+<th width="20%">Type</th>
+<th width="25%">Modules</th>
+<th width="30%">How to Access</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top">
+<strong>Python Data Science Handbook</strong><br/>
+<em>By Jake VanderPlas</em>
+</td>
+<td align="center">📙 Reference</td>
+<td align="center">Module 1 & 2</td>
+<td>Request in #sair-library channel</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>The Hundred-Page Machine Learning Book</strong><br/>
+<em>By Andriy Burkov</em>
+</td>
+<td align="center">📗 Book Club / 📘 Must</td>
+<td align="center">All Modules</td>
+<td>Provided for book club participants</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Hands-on Machine Learning with Scikit-Learn & PyTorch</strong><br/>
+<em>By Aurélien Géron</em>
+</td>
+<td align="center">📘 Must / 📙 Reference</td>
+<td align="center">Modules 0-5</td>
+<td>Mandatory - request from SAIR team</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Designing Machine Learning Systems</strong><br/>
+<em>By Chip Huyen</em>
+</td>
+<td align="center">📗 Book Club / 📘 Must</td>
+<td align="center">Modules 4 & 5</td>
+<td>Provided for MLOps track</td>
+</tr>
+<tr>
+<td valign="top">
+<strong>Dive into Deep Learning</strong><br/>
+<em>By Aston Zhang et al.</em>
+</td>
+<td align="center">📙 Reference</td>
+<td align="center">Modules 3 & 4</td>
+<td>Available as PDF and interactive website</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+### **🗺️ Library Roadmap by Module**
+
+<div align="center">
+
+<table>
+<thead>
+<tr>
+<th width="15%">Module</th>
+<th width="85%">Recommended Reading Schedule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><strong>Module 0-2<br/>🐍📊</strong></td>
+<td valign="top">
+<strong>Foundation Phase:</strong><br/>
+1. <strong>Start with:</strong> Python Data Science Handbook (Reference - request from SAIR)<br/>
+2. <strong>Book Club:</strong> The Hundred-Page Machine Learning Book (2 chapters/week)<br/>
+3. <strong>Core Reading:</strong> Hands-on Machine Learning (Chapters 1-9)<br/>
+<em>Focus: Data manipulation, basic ML, production pipelines</em>
+</td>
+</tr>
+<tr>
+<td align="center"><strong>Module 3-4<br/>🧠🔥</strong></td>
+<td valign="top">
+<strong>Deep Learning Phase:</strong><br/>
+1. <strong>Core Reading:</strong> Hands-on Machine Learning (DL Chapters)<br/>
+2. <strong>Reference:</strong> Dive into Deep Learning (Interactive online)<br/>
+3. <strong>Book Club:</strong> Designing Machine Learning Systems (1 chapter/week)<br/>
+<em>Focus: Neural networks, PyTorch, system design</em>
+</td>
+</tr>
+<tr>
+<td align="center"><strong>Module 5<br/>⚙️🏢</strong></td>
+<td valign="top">
+<strong>Production Phase:</strong><br/>
+1. <strong>Deep Dive:</strong> Designing Machine Learning Systems (Full book)<br/>
+2. <strong>Practical:</strong> Hands-on Machine Learning (Deployment chapters)<br/>
+3. <strong>Supplemental:</strong> Online resources for Docker, Kubernetes, Cloud<br/>
+<em>Focus: MLOps, deployment, monitoring, scaling</em>
+</td>
+</tr>
+<tr>
+<td align="center"><strong>Capstone<br/>💎</strong></td>
+<td valign="top">
+<strong>Integration Phase:</strong><br/>
+• All above books as reference<br/>
+• Domain-specific papers and articles<br/>
+• SAIR project templates and guides<br/>
+• Community knowledge base contributions<br/>
+<em>Focus: End-to-end project implementation</em>
+</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+
+### **📚 How to Request Books**
+
+<div align="center">
+
+<table>
+<tr>
+<td align="center" width="33%">
+<h4>1️⃣ Join Community</h4>
+Telegram: #sair-library<br/>
+Access: Request in channel
+</td>
+<td align="center" width="33%">
+<h4>2️⃣ Specify Needs</h4>
+Module number<br/>
+Book title<br/>
+Format preference
+</td>
+<td align="center" width="33%">
+<h4>3️⃣ Receive Access</h4>
+Digital copies provided<br/>
+Reading groups formed<br/>
+Discussion channels created
+</td>
+</tr>
+</table>
+
+</div>
+
+### **🌟 Why This Library Matters**
+
+<div align="center">
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**🎯 Structured Learning:**
+- Books aligned with modules
+- Progressive difficulty
+- Community discussions
+- Practical applications
+
+</td>
+<td width="50%" valign="top">
+
+**💰 Cost Elimination:**
+- All books provided free
+- No financial barriers
+- Equal access for all
+- Focus on learning
+
+</td>
+</tr>
+</table>
+
+</div>
+
+### **📢 Book Request Process**
+
+```bash
+# Step-by-step guide to get your books:
+
+1. Join SAIR Telegram community
+2. Navigate to #sair-library channel
+3. Message: "Book Request: [Book Title] for [Module X]"
+4. Provide your SAIR learner ID (if available)
+5. Receive digital copy within 24 hours
+6. Join corresponding reading/discussion group
+```
+
+### **📖 Additional Resources Provided**
+
+<div align="center">
+
+<table>
+<tr>
+<td align="center" width="25%">
+<h4>📝 Study Guides</h4>
+Chapter summaries<br/>
+Key concept cheatsheets<br/>
+Practice questions
+</td>
+<td align="center" width="25%">
+<h4>🎯 Project Links</h4>
+Code examples<br/>
+Implementation guides<br/>
+Troubleshooting tips
+</td>
+<td align="center" width="25%">
+<h4>🌍 Local Context</h4>
+Sudanese datasets<br/>
+Arabic NLP resources<br/>
+African AI case studies
+</td>
+<td align="center" width="25%">
+<h4>👥 Community Notes</h4>
+Collective annotations<br/>
+Discussion transcripts<br/>
+Q&A compilations
+</td>
+</tr>
+</table>
 
 </div>
 
@@ -1071,24 +1336,7 @@ pip install -r requirements.txt
 jupyter notebook 0_Python_ML_Foundations/SAIR_Lecture_0.ipynb
 ```
 
-### **📚 Learning Resources Per Module**
 
-<div align="center">
-
-<table>
-<thead>
-<tr>
-<th width="15%">Module</th>
-<th width="25%">Key Resources</th>
-<th width="25%">Practice Platforms</th>
-<th width="35%">Community Channels</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-
-</tr>
-</tbody>
 </table>
 
 </div>
@@ -1105,21 +1353,6 @@ jupyter notebook 0_Python_ML_Foundations/SAIR_Lecture_0.ipynb
 
 </div>
 
-### **📅 Weekly Community Schedule**
-
-<div align="center">
-
-<table>
-<thead>
-<tr>
-<th width="15%">Day</th>
-<th width="15%">Time (UTC+2)</th>
-<th width="35%">Activity</th>
-<th width="35%">Lead</th>
-</tr>
-</thead>
-<tbody>
-<tr>
 
 </tr>
 </tbody>
@@ -1319,41 +1552,6 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 <td align="center" width="20%">
 👨‍🏫<br/>
 <strong>Mentor<br/>Peers</strong>
-</td>
-</tr>
-</table>
-
-</div>
-
-### **📞 Contact & Support**
-
-<div align="center">
-
-<table>
-<tr>
-<td align="center" width="25%">
-<a href="https://t.me/+jPPlO6ZFDbtlYzU0">
-<strong>Community</strong><br/>
-Telegram Group
-</a>
-</td>
-<td align="center" width="25%">
-<a href="https://github.com/silvaxxx1/SAIR/issues">
-<strong>Issues</strong><br/>
-GitHub Issues
-</a>
-</td>
-<td align="center" width="25%">
-<a href="mailto:silvaxxx1@gmail.com">
-<strong>Email</strong><br/>
-Formal Inquiries
-</a>
-</td>
-<td align="center" width="25%">
-<a href="https://twitter.com/search?q=%23SAIRSudan">
-<strong>Social Media</strong><br/>
-#SAIRSudan
-</a>
 </td>
 </tr>
 </table>
