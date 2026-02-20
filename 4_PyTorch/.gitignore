@@ -1,0 +1,8 @@
+datasets 
+yolov8n.pt
+yolov8n-seg.pt
+yolov8n-pose.pt
+runs
+detection_output
+*.pt
+yolov8n.onnx

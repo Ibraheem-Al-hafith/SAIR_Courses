@@ -387,3 +387,14 @@ todo.txt
 *.old
 *.orig
 *.save
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.pt 
+
+yolov8n-pose.pt
+yolov8n.pt

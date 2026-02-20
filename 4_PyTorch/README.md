@@ -1,43 +1,37 @@
 # Module 4: Applied Deep Learning with PyTorch ⚡
 
-**From PyTorch Fundamentals to CNNs and Transfer Learning**
+**From PyTorch Fundamentals to Modern Gen AI**
 
 **📍 Location:** `4_PyTorch/`
 **🎯 Prerequisite:** Module 3 – Neural Networks from Scratch
-**➡️ Next Module:** Advanced Deep Learning Architectures
+**➡️ Next Module:** MLOps & Deployment (The Grand Finale)
 
-Welcome to **Module 4** of **SAIR**, focused on **applied deep learning using PyTorch**.
-This module bridges the gap between theory and practice by introducing PyTorch as a full deep learning framework and progressively building toward **convolutional neural networks (CNNs)** and **transfer learning with modern architectures**.
-
-You will move from core PyTorch concepts to training real models on real datasets using industry-standard workflows.
+Welcome to **Module 4** of **SAIR** – your comprehensive journey into applied deep learning with PyTorch. This module bridges theory and practice, taking you from tensor operations all the way to state-of-the-art object detection with YOLOv8 and Gen AI with transformers.
 
 ---
 
-## 🎯 Who Is This Module For?
+## 🎯 Module Overview
 
-### ✅ This module is suitable if you:
+This module is structured in progressive phases:
 
-* Understand basic neural networks and backpropagation
-* Want to use PyTorch for practical deep learning projects
-* Need hands-on experience with CNNs and transfer learning
-* Are preparing for applied ML, CV, or research-oriented roles
-
-### 🔁 You may skim or review if you already:
-
-* Have experience training CNNs in PyTorch
-* Understand DataLoader optimization and GPU workflows
-* Have implemented transfer learning with pretrained models
+1. **PyTorch Fundamentals** – Tensors, autograd, training loops
+2. **Computer Vision with CNNs** – From scratch implementations to modern architectures
+3. **Production-Ready Demos** – Real-world applications with YOLOv8
+4. **Research & Theory** – Foundational papers and modern vision concepts
 
 ---
 
-## 🛠️ Core Technologies
+## 🛠️ Tech Stack
 
 <div align="center">
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python\&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge\&logo=pytorch\&logoColor=white)
-![CUDA](https://img.shields.io/badge/CUDA-76B900?style=for-the-badge\&logo=nvidia\&logoColor=white)
-![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge\&logo=jupyter\&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![YOLOv8](https://img.shields.io/badge/YOLOv8-00FFFF?style=for-the-badge&logo=yolo&logoColor=black)
+![CUDA](https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white)
+![UV](https://img.shields.io/badge/UV-FFD43B?style=for-the-badge&logo=python&logoColor=blue)
 
 </div>
 
@@ -45,208 +39,267 @@ You will move from core PyTorch concepts to training real models on real dataset
 
 ## 📚 Module Contents
 
-### **Notebooks**
+### **Core Learning Track (Notebooks)**
 
-| File                              | Focus                                                           |
-| --------------------------------- | --------------------------------------------------------------- |
-| **`1_Intro.ipynb`**               | PyTorch fundamentals: tensors, autograd, models, training loops |
-| **`2_DataLoader.ipynb`**          | Dataset & DataLoader design, performance considerations         |
-| **`3_CNN.ipynb`**                 | Convolutional Neural Networks from scratch                      |
-| **`4_Transfer_and_ResNet.ipynb`** | Transfer learning, ResNet, and pretrained models                |
-
----
-
-### **Labs**
-
-| Lab               | Description                        |
-| ----------------- | ---------------------------------- |
-| **`lab_1.ipynb`** | PyTorch basics & tensor operations |
-| **`lab_2.ipynb`** | Training neural networks           |
-| **`lab_3.ipynb`** | CNN implementation and experiments |
-| **`lab_4.ipynb`** | Transfer learning & evaluation     |
-
-Student submissions are organized under:
-
-```
-lab_assignments/
-├── student_name/
-│   └── lab_1.ipynb
-```
+| File | Focus |
+|------|-------|
+| **`1_PyTorch_Fundamentals/1_Intro.ipynb`** | Tensors, autograd, model building, training loops |
+| **`1_PyTorch_Fundamentals/2_DataLoader.ipynb`** | Dataset classes, DataLoader optimization, performance |
+| **`2_Vision_and_CNN/3_CNN.ipynb`** | Convolutional Neural Networks from scratch |
+| **`2_Vision_and_CNN/4_Transfer_and_ResNet.ipynb`** | Transfer learning, ResNet, pretrained models |
+| **`2_Vision_and_CNN/5_Modern_Vision.ipynb`** | Modern architectures and vision transformers |
+    Same Lecture, split into 3 parts for depth and clarity:
+| **`2_Vision_and_CNN/5A.ipynb`**, **`5B.ipynb`**, **`5C.ipynb`** | Advanced vision concepts and experiments |
 
 ---
 
-### **Data**
+### **Hands-on Labs**
 
-```
-data/
-└── cifar-10-batches-py/
-```
+| Lab | Location | Description |
+|-----|----------|-------------|
+| **Lab 1** | `1_PyTorch_Fundamentals/labs/lab_1.ipynb` | PyTorch basics & tensor operations |
+| **Lab 2** | `1_PyTorch_Fundamentals/labs/lab_2.ipynb` | Training neural networks |
+| **Lab 3** | `2_Vision_and_CNN/labs/lab_3.ipynb` | CNN implementation and experiments |
+| **Lab 4** | `2_Vision_and_CNN/labs/lab_4.ipynb` | Transfer learning & evaluation |
 
-* CIFAR-10 dataset for CNN and transfer learning experiments
-* Includes raw batch files and metadata
-* Used across CNN and transfer learning notebooks
-
----
-
-### **Reference Papers**
-
-| File                    | Purpose                       |
-| ----------------------- | ----------------------------- |
-| **`AlexNet_paper.pdf`** | Foundational CNN architecture |
-| **`ResNet_paper.pdf`**  | Deep residual learning        |
-
-These papers provide architectural context for the models implemented in the notebooks.
+Student submissions are organized under `lab_assignments/[student_name]/`
 
 ---
 
-### **Assets**
+### **Production Demos with YOLOv8**
 
-```
-assets/
-└── ME.jpeg
+The `Demos/` directory contains ready-to-run applications:
+
+| Demo | File | Description |
+|------|------|-------------|
+| **Live Detection** | `demo_01_live_detection.py` | Real-time object detection with webcam |
+| **Background Removal** | `demo_02_background_removal.py` | Remove backgrounds using segmentation |
+| **Pose Estimation** | `demo_03_pose_estimation.py` | Human pose estimation in real-time |
+| **Gesture Control** | `demo_04_gesture_control.py` | Control applications with hand gestures |
+| **Model Comparison** | `demo_05_model_comparison.py` | Compare YOLOv8n/s/m performance |
+| **Batch Processing** | `demo_06_batch_processing.py` | Process multiple images efficiently |
+| **Video Processing** | `demo_07_video_processing.py` | Object detection on video files |
+
+**Quick Start:**
+```bash
+cd Demos
+uv pip install -r requirements.txt
+python run_demos.py  # Interactive menu
+# Or run individually: python demo_01_live_detection.py
 ```
 
-Used for demonstrations, visualization, or documentation examples.
+Pre-trained models included:
+- `yolov8n.pt` – Nano (fastest)
+- `yolov8s.pt` – Small
+- `yolov8m.pt` – Medium
+- `yolov8n-seg.pt` – Segmentation
+- `yolov8n-pose.pt` – Pose estimation
 
 ---
 
-## 🗺️ Learning Progression
+### **Datasets**
 
-### **Phase 1: PyTorch Foundations**
+| Dataset | Location | Purpose |
+|---------|----------|---------|
+| **CIFAR-10** | `data/cifar-10-batches-py/` | CNN training & experiments |
+| **COCO128** | `datasets/coco128/` | YOLO format object detection |
+| **Assets** | `assets/` | Test images for demos |
 
-📘 `1_Intro.ipynb`
-
-* Tensors and tensor operations
-* Automatic differentiation (autograd)
-* Building models with `nn.Module`
-* Training loops and evaluation
-* CPU/GPU device handling
-* Saving and loading models
-
----
-
-### **Phase 2: Data Pipelines**
-
-📦 `2_DataLoader.ipynb`
-
-* Custom `Dataset` classes
-* Efficient `DataLoader` usage
-* Batching, shuffling, workers
-* Common data pipeline pitfalls
+The COCO128 dataset is a mini version of COCO with 128 images, perfect for:
+- Learning YOLO data format
+- Quick experimentation
+- Testing detection pipelines
 
 ---
 
-### **Phase 3: Convolutional Neural Networks**
+### **Research Papers**
 
-🧠 `3_CNN.ipynb`
-
-* Convolutions, pooling, padding
-* CNN architecture design
-* Training CNNs on CIFAR-10
-* Overfitting, regularization, diagnostics
+| Paper | File | Key Concepts |
+|-------|------|--------------|
+| **AlexNet** | `papers/AlexNet_paper.pdf` | First deep CNN for ImageNet |
+| **ResNet** | `papers/ResNet_paper.pdf` | Residual connections, deep networks |
 
 ---
 
-### **Phase 4: Transfer Learning & Modern Architectures**
-
-🚀 `4_Transfer_and_ResNet.ipynb`
-
-* Motivation for transfer learning
-* Feature extraction vs fine-tuning
-* Using pretrained ResNet models
-* Performance comparison and analysis
-
----
-
-## 📂 Directory Structure
+## 📂 Complete Directory Structure
 
 ```
 4_PyTorch/
 │
-├── README.md
-├── 1_Intro.ipynb
-├── 2_DataLoader.ipynb
-├── 3_CNN.ipynb
-├── 4_Transfer_and_ResNet.ipynb
+├── 1_PyTorch_Fundamentals/
+│   ├── 1_Intro.ipynb
+│   ├── 2_DataLoader.ipynb
+│   └── labs/
+│       ├── lab_1.ipynb
+│       └── lab_2.ipynb
 │
-├── labs/
-│   ├── lab_1.ipynb
-│   ├── lab_2.ipynb
-│   ├── lab_3.ipynb
-│   └── lab_4.ipynb
+├── 2_Vision_and_CNN/
+│   ├── 3_CNN.ipynb
+│   ├── 4_Transfer_and_ResNet.ipynb
+│   ├── 5_Modern_Vision.ipynb
+│   ├── 5A.ipynb, 5B.ipynb, 5C.ipynb
+│   └── labs/
+│       ├── lab_3.ipynb
+│       └── lab_4.ipynb
 │
-├── lab_assignments/
-│   └── student_submissions/
+├── Demos/
+│   ├── demo_01_live_detection.py
+│   ├── demo_02_background_removal.py
+│   ├── demo_03_pose_estimation.py
+│   ├── demo_04_gesture_control.py
+│   ├── demo_05_model_comparison.py
+│   ├── demo_06_batch_processing.py
+│   ├── demo_07_video_processing.py
+│   ├── run_demos.py
+│   ├── requirements.txt
+│   └── README_DEMOS.md
+│
+├── datasets/
+│   └── coco128/
+│       ├── images/
+│       ├── labels/
+│       └── LICENSE
 │
 ├── data/
 │   └── cifar-10-batches-py/
 │
-├── assets/
+├── lab_assignments/
+│   └── [student_name]/
+│       └── lab_1.ipynb
 │
-├── AlexNet_paper.pdf
-└── ResNet_paper.pdf
+├── papers/
+│   ├── AlexNet_paper.pdf
+│   └── ResNet_paper.pdf
+│
+├── assets/
+│   └── (test images)
+│
+├── detection_output/
+│   └── (processed detection results)
+│
+├── yolov8n*.pt (model files)
+├── coco128.yaml
+└── README.md
 ```
+
+---
+
+## 🚀 Learning Pathway
+
+### **Phase 1: Foundations** (Week 1)
+1. `1_PyTorch_Fundamentals/1_Intro.ipynb` – Tensor operations & autograd
+2. Complete `labs/lab_1.ipynb`
+3. `1_PyTorch_Fundamentals/2_DataLoader.ipynb` – Data pipelines
+4. Complete `labs/lab_2.ipynb`
+
+### **Phase 2: Computer Vision** (Week 2)
+1. `2_Vision_and_CNN/3_CNN.ipynb` – Build CNNs from scratch
+2. Complete `labs/lab_3.ipynb`
+3. `2_Vision_and_CNN/4_Transfer_and_ResNet.ipynb` – Transfer learning
+4. Complete `labs/lab_4.ipynb`
+
+### **Phase 3: Modern Vision** (Week 3)
+1. `2_Vision_and_CNN/5_Modern_Vision.ipynb` – Modern architectures
+2. Explore `5A.ipynb`, `5B.ipynb`, `5C.ipynb` for advanced topics
+3. Read AlexNet and ResNet papers
+
+### **Phase 4: Production Demos** (Week 4)
+1. Set up `Demos/` environment: `uv pip install -r requirements.txt`
+2. Run `demo_01_live_detection.py` – First real-time detection
+3. Experiment with `demo_05_model_comparison.py`
+4. Build your own application with COCO128 dataset
 
 ---
 
 ## 🎯 Learning Outcomes
 
-After completing this module, you should be able to:
+After completing this module, you will be able to:
 
-* Use PyTorch tensors and autograd confidently
-* Implement neural networks using `nn.Module`
-* Write clean and correct training loops
-* Build and train CNNs for image classification
-* Load and preprocess data efficiently
-* Apply transfer learning with pretrained models
-* Understand key CNN architectures from literature
-* Evaluate and compare deep learning models
+- **Build** neural networks from scratch using PyTorch
+- **Design** efficient data pipelines with custom Datasets and DataLoaders
+- **Train** CNNs for image classification tasks
+- **Apply** transfer learning with pretrained ResNet models
+- **Deploy** state-of-the-art YOLOv8 models for:
+  - Object detection
+  - Instance segmentation
+  - Pose estimation
+- **Process** images, videos, and live camera feeds
+- **Understand** modern vision architectures and research papers
 
 ---
 
-## 🚀 How to Get Started
+## 🔧 Installation & Setup with UV
 
 ```bash
-# Start with fundamentals
-jupyter notebook 1_Intro.ipynb
+# Install uv if you haven't already
+curl -LsSf https://astral.sh/uv/install.sh | sh
+# or
+pip install uv
 
-# Learn data pipelines
-jupyter notebook 2_DataLoader.ipynb
+# Clone the repository (if not done)
+git clone [your-repo-url]
+cd SAIR/4_PyTorch
 
-# Build CNNs
-jupyter notebook 3_CNN.ipynb
+# Create and activate virtual environment with uv
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
-# Apply transfer learning
-jupyter notebook 4_Transfer_and_ResNet.ipynb
+# Install core dependencies
+uv pip install torch torchvision torchaudio
+uv pip install jupyter matplotlib numpy pandas tqdm
 
-# Practice with labs
-cd labs
+# For YOLOv8 demos
+cd Demos
+uv pip install -r requirements.txt
+
+# Launch Jupyter
+cd ..
+jupyter notebook
 ```
 
----
+### **UV Commands Cheat Sheet**
 
-## 📌 Notes
-
-* Labs are meant for **active practice**
-* Papers are provided for **conceptual understanding**
-* CIFAR-10 is used consistently for reproducible experiments
-* Code emphasizes clarity and correctness over shortcuts
-
----
-
-## 🔜 What’s Next?
-
-After this module, you’ll be ready to:
-
-* Explore advanced architectures (Transformers, Vision Transformers)
-* Optimize models and training pipelines
-* Read and implement modern research papers
-* Build end-to-end deep learning projects
-
-➡️ **Next Module:** *Advanced Deep Learning Architectures*
+| Command | Purpose |
+|---------|---------|
+| `uv venv` | Create virtual environment |
+| `uv pip install <package>` | Install a package |
+| `uv pip install -r requirements.txt` | Install from requirements file |
+| `uv pip list` | List installed packages |
+| `uv pip freeze > requirements.txt` | Generate requirements file |
+| `uv pip uninstall <package>` | Remove a package |
+| `uv cache clean` | Clean uv cache |
 
 ---
 
-> **“Frameworks automate computation — understanding gives you control.”**
+## 📝 Notes & Best Practices
 
-This module is about **learning PyTorch deeply enough to use it correctly, confidently, and creatively**.
+- **GPU Usage**: Most notebooks automatically detect CUDA. Use `torch.cuda.is_available()` to check.
+- **Data Management**: Large datasets are gitignored. Download CIFAR-10 through the notebooks.
+- **Model Files**: Pre-trained YOLO models are included, but can be re-downloaded if needed.
+- **Lab Submissions**: Place your completed labs in `lab_assignments/[your_name]/`
+- **Experimentation**: Use the `detection_output/` folder for saving results.
+- **UV Speed**: UV is significantly faster than pip – enjoy the speed boost! ⚡
+
+---
+
+## 🤝 Contributing
+
+Feel free to:
+- Add new demos to the `Demos/` directory
+- Improve notebook documentation
+- Share your lab solutions
+- Suggest new datasets or models
+
+---
+
+## 📚 Additional Resources
+
+- [PyTorch Official Tutorials](https://pytorch.org/tutorials/)
+- [Ultralytics YOLOv8 Docs](https://docs.ultralytics.com/)
+- [UV Documentation](https://docs.astral.sh/uv/)
+- [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
+- [Papers with Code](https://paperswithcode.com/)
+
+> *"From tensors to production – understanding every layer of the stack."*
+
+**Happy Learning with UV! 🚀⚡**
