@@ -196,15 +196,9 @@ The COCO128 dataset is a mini version of COCO with 128 images, perfect for:
 4. Complete `labs/lab_4.ipynb`
 
 ### **Phase 3: Modern Vision** (Week 4)
-1. `2_Vision_and_CNN/5_Modern_Vision.ipynb` – Modern architectures
-2. Explore `5A.ipynb`, `5B.ipynb`, `5C.ipynb` for advanced topics
-3. Read AlexNet and ResNet papers
-
-### **Phase 4: Production Demos** (Week 4)
-1. Set up `Demos/` environment: `uv pip install -r requirements.txt`
-2. Run `demo_01_live_detection.py` – First real-time detection
-3. Experiment with `demo_05_model_comparison.py`
-4. Build your own application with COCO128 dataset
+1. Explore `5A_YOLO.ipynb`, `5B_5B_Segment_Pose.ipynb`, `5C_5C_ViTs_and_Deploy.ipynb` for advanced topics
+2. Set up and explore `Demos/` environment: `uv pip install -r requirements.txt`
+3. Build your own application with COCO128 dataset
 
 ---
 
