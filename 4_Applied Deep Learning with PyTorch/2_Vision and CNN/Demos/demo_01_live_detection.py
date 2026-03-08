@@ -42,7 +42,7 @@ def main():
     
     # Load YOLO model
     print("Loading YOLOv8n...")
-    model = YOLO('yolov8n.pt')
+    model = YOLO('/home/silva/SILVA.AI/Projects/SAIR/4_Applied Deep Learning with PyTorch/2_Vision and CNN/best_yolo26m_100.pt')
     print("✅ Model loaded!\n")
     
     # Open webcam
