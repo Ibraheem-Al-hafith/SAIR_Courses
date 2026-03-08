@@ -1,4 +1,4 @@
-# 🚀 SAIR Jr. Certification Track: Your Launchpad into AI Engineering
+# 🚀 SAIR Jr. Certification Track: Your Launchpad into AI/ML Engineering
 
 <div align="center">
 
@@ -20,7 +20,7 @@
 </a>
 </td>
 <td align="center">
-<img src="https://img.shields.io/badge/NOW_LEARNING-PyTorch_Deep_Learning-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="Current Module"/>
+<img src="https://img.shields.io/badge/NOW_LEARNING-Transformers_&_GPT-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="Current Module"/>
 </td>
 <td align="center">
 <img src="https://img.shields.io/badge/ENROLLMENT-OPEN-brightgreen?style=for-the-badge" alt="Status"/>
@@ -164,10 +164,10 @@
 </tr>
 <tr style="background: linear-gradient(90deg, #fff3cd 0%, #fff8e1 100%); border-left: 4px solid #ffc107;">
 <td align="center"><strong>4 🔥</strong></td>
-<td><strong>Applied Deep Learning</strong><br/><em>PyTorch, CNN, RNN, Transformers</em></td>
-<td align="center">4-6 weeks</td>
+<td><strong>Applied Deep Learning</strong><br/><em>PyTorch, CNN, RNN, Transformers, GPT from Scratch</em></td>
+<td align="center">6-8 weeks</td>
 <td align="center">⚡ <strong>LIVE NOW</strong></td>
-<td>Computer vision & NLP apps</td>
+<td>Vision apps, NLP pipelines, GPT language model</td>
 <td>Modern AI development</td>
 </tr>
 <tr>
@@ -197,18 +197,18 @@
 
 <div align="center">
 
-### **🟢 Week 3 of 6: Computer Vision & CNNs**
+### **🟢 Week 6 of 8: Transformers & Fine-Tuning**
 
-**Where we are now:** Building image classifiers with convolutional neural networks  
-**Next week:** Transfer learning for real-world applications
+**Where we are now:** Fine-tuning pretrained transformers with HuggingFace  
+**Next week:** Building a GPT language model from scratch
 
 <table>
 <tr>
 <td width="60%" align="center">
 <h4>📊 This Week's Progress</h4>
 <div style="background: #f5f5f5; padding: 10px; border-radius: 8px;">
-<div style="background: linear-gradient(90deg, #4caf50 65%, #e0e0e0 35%); height: 20px; border-radius: 10px;"></div>
-<p style="margin-top: 8px;"><strong>65% of Module 4 Complete</strong></p>
+<div style="background: linear-gradient(90deg, #4caf50 75%, #e0e0e0 25%); height: 20px; border-radius: 10px;"></div>
+<p style="margin-top: 8px;"><strong>75% of Module 4 Complete</strong></p>
 </div>
 </td>
 <td width="40%" align="center">
@@ -246,29 +246,41 @@
 <td>Creating efficient pipelines for real-world datasets</td>
 <td>🔄 Process large image datasets with parallel loading</td>
 </tr>
-<tr style="background-color: #fff8e1; border-left: 3px solid #ff9800;">
-<td align="center"><strong>3</strong><br/>👁️<br/>📍<em>YOU ARE HERE</em></td>
+<tr>
+<td align="center"><strong>3</strong><br/>👁️</td>
 <td><strong>Computer Vision</strong></td>
 <td>How CNNs see and understand images feature by feature</td>
-<td>🖼️ Build an image classifier for Sudanese plant diseases</td>
+<td>🖼️ Build an image classifier from scratch</td>
 </tr>
 <tr>
 <td align="center"><strong>4</strong><br/>🔄</td>
-<td><strong>Transfer Learning</strong></td>
-<td>Leveraging pre-trained models for your specific problems</td>
-<td>🌾 Fine-tune models for agricultural applications</td>
+<td><strong>Transfer Learning & YOLO</strong></td>
+<td>Leveraging pretrained models — from ResNet to YOLOv8</td>
+<td>🎯 Real-time object detection, segmentation, pose estimation</td>
 </tr>
 <tr>
 <td align="center"><strong>5</strong><br/>📝</td>
-<td><strong>NLP Fundamentals</strong></td>
-<td>How AI understands and generates human language</td>
-<td>💬 Create an Arabic sentiment analysis model</td>
+<td><strong>Sequence Modeling</strong></td>
+<td>How RNNs and LSTMs process language and time-series data</td>
+<td>💬 Sequence classifier trained on the Harry Potter corpus</td>
+</tr>
+<tr style="background-color: #fff8e1; border-left: 3px solid #ff9800;">
+<td align="center"><strong>6</strong><br/>🤗<br/><em>📍YOU ARE HERE</em></td>
+<td><strong>Transformers & Fine-Tuning</strong></td>
+<td>The HuggingFace ecosystem and fine-tuning pretrained models</td>
+<td>🔤 Fine-tune BERT for Arabic text classification</td>
 </tr>
 <tr>
-<td align="center"><strong>6</strong><br/>🤖</td>
-<td><strong>LLMs & Transformers</strong></td>
-<td>The architecture behind ChatGPT and modern AI</td>
-<td>🔤 Build a text generator with HuggingFace</td>
+<td align="center"><strong>7</strong><br/>🧠</td>
+<td><strong>GPT from Scratch</strong></td>
+<td>Self-attention, multi-head attention, and the full transformer architecture</td>
+<td>🤖 Build and train a GPT language model on real text</td>
+</tr>
+<tr>
+<td align="center"><strong>8</strong><br/>🏗️</td>
+<td><strong>Classification Hub</strong></td>
+<td>Applying everything independently across all five data modalities</td>
+<td>📊🖼️🎵📝 Five open-ended projects — no guidance, just the problem</td>
 </tr>
 </tbody>
 </table>
@@ -780,6 +792,8 @@ With NeetCode 75 completion and SAIR Jr. training, graduates demonstrate:
 </tr>
 </table>
 
+</div>
+
 ---
 
 ### **"السير" - The Journey Begins with a Single Step**
@@ -810,7 +824,7 @@ With NeetCode 75 completion and SAIR Jr. training, graduates demonstrate:
 - [ ] Find a study group partner
 - [ ] Fork NeetCode SAIR repository
 
-**License:** MIT | **Last Updated:** January 2025  
+**License:** MIT | **Last Updated:** March 2026  
 **Building Sudan's AI Future, One Engineer at a Time 🇸🇩✨**
 
 ---
