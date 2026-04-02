@@ -99,8 +99,8 @@
 │   ├── 📈 Module 1: First ML Model
 │   ├── 🎯 Module 2: Production ML
 │   ├── 🧠 Module 3: Neural Networks
-│   ├── 🔥 Module 4: Deep Learning (Current)
-│   ├── 🧠 Module 5: GPT from Scratch
+│   ├── 🔥 Module 4: Deep Learning ✅
+│   ├── 🧠 Module 5: GPT from Scratch (Current)
 │   └── 💎 Capstone: Real-World Project
 │
 ├── 🚀 SAIR Mid (Coming 2025)
@@ -162,15 +162,15 @@
 <td>Custom neural network library</td>
 <td>Fundamental understanding</td>
 </tr>
-<tr style="background: linear-gradient(90deg, #fff3cd 0%, #fff8e1 100%); border-left: 4px solid #ffc107;">
+<tr>
 <td align="center"><strong>4 🔥</strong></td>
 <td><strong>Applied Deep Learning</strong><br/><em>PyTorch, CNN, RNN, Transformers, HuggingFace</em></td>
 <td align="center">6-8 weeks</td>
-<td align="center">⚡ <strong>LIVE NOW</strong></td>
+<td align="center">✅ Complete</td>
 <td>Vision apps, NLP pipelines, fine-tuned transformers</td>
 <td>Modern AI development</td>
 </tr>
-<tr>
+<tr style="background: linear-gradient(90deg, #fff3cd 0%, #fff8e1 100%); border-left: 4px solid #ffc107;">
 <td align="center"><strong>5 🧠</strong></td>
 <td><strong>GPT from Scratch</strong><br/><em>Attention, transformer architecture, SFT</em></td>
 <td align="center">4-6 weeks</td>
@@ -193,88 +193,82 @@
 
 ---
 
-## 🔥 **Jump Into Our Current Module: Applied Deep Learning**
+## 🔥 **Jump Into Our Current Module: GPT from Scratch**
 
 <div align="center">
 
-### **🟢 Week 6 of 8: Transformers & Fine-Tuning**
+### **🟢 Now Building: A GPT Language Model — From a Blank File**
 
-**Where we are now:** Fine-tuning pretrained transformers with HuggingFace  
-**Next week:** Building a GPT language model from scratch
+**Where we are now:** Implementing every component of a transformer LLM using only PyTorch  
+**Textbook:** *Build a Large Language Model (From Scratch)* — Sebastian Raschka (read in parallel)
 
 <table>
 <tr>
 <td width="60%" align="center">
-<h4>📊 This Week's Progress</h4>
+<h4>📊 Module Progress</h4>
 <div style="background: #f5f5f5; padding: 10px; border-radius: 8px;">
-<div style="background: linear-gradient(90deg, #4caf50 75%, #e0e0e0 25%); height: 20px; border-radius: 10px;"></div>
-<p style="margin-top: 8px;"><strong>75% of Module 4 Complete</strong></p>
+<div style="background: linear-gradient(90deg, #4caf50 33%, #e0e0e0 67%); height: 20px; border-radius: 10px;"></div>
+<p style="margin-top: 8px;"><strong>Lectures 1–2 of 6 Complete</strong></p>
 </div>
 </td>
 <td width="40%" align="center">
-<h4>👥 Community Activity</h4>
-<p>🚀 42 projects submitted this week<br/>
-💬 128 active discussions<br/>
-👁️ 3 project showcases scheduled</p>
+<h4>🧠 What We're Building</h4>
+<p>🔤 Custom tokenizer + data pipeline<br/>
+👁️ Multi-head causal attention<br/>
+🏗️ Full GPT-2 architecture (124M params)</p>
 </td>
 </tr>
 </table>
 
 </div>
 
-### 📖 **Module 4 Learning Journey: Build Modern AI Applications**
+### 📖 **Module 5 Learning Journey: Build a GPT Language Model**
 
 <table>
 <thead>
 <tr>
-<th width="8%">Week</th>
+<th width="8%">Lecture</th>
 <th width="25%">Core Concept</th>
 <th width="32%">What You'll Understand</th>
-<th width="35%">Hands-On Project</th>
+<th width="35%">Hands-On Build</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="center"><strong>1</strong><br/>⚡</td>
-<td><strong>PyTorch Mastery</strong></td>
-<td>How tensors, autograd, and computation graphs power modern AI</td>
-<td>🔧 Build custom layers with GPU acceleration</td>
-</tr>
-<tr>
-<td align="center"><strong>2</strong><br/>📦</td>
-<td><strong>Data Engineering</strong></td>
-<td>Creating efficient pipelines for real-world datasets</td>
-<td>🔄 Process large image datasets with parallel loading</td>
-</tr>
-<tr>
-<td align="center"><strong>3</strong><br/>👁️</td>
-<td><strong>Computer Vision</strong></td>
-<td>How CNNs see and understand images feature by feature</td>
-<td>🖼️ Build an image classifier from scratch</td>
-</tr>
-<tr>
-<td align="center"><strong>4</strong><br/>🔄</td>
-<td><strong>Transfer Learning & YOLO</strong></td>
-<td>Leveraging pretrained models — from ResNet to YOLOv8</td>
-<td>🎯 Real-time object detection, segmentation, pose estimation</td>
-</tr>
-<tr>
-<td align="center"><strong>5</strong><br/>📝</td>
-<td><strong>Sequence Modeling</strong></td>
-<td>How RNNs and LSTMs process language and time-series data</td>
-<td>💬 Sequence classifier trained on the Harry Potter corpus</td>
+<td align="center"><strong>1</strong><br/>📦</td>
+<td><strong>Data & Tokenization</strong></td>
+<td>How raw text becomes token IDs ready for a language model</td>
+<td>🔤 Tokenizer + sliding window DataLoader on Harry Potter corpus</td>
 </tr>
 <tr style="background-color: #fff8e1; border-left: 3px solid #ff9800;">
-<td align="center"><strong>6</strong><br/>🤗<br/><em>📍YOU ARE HERE</em></td>
-<td><strong>Transformers & Fine-Tuning</strong></td>
-<td>The HuggingFace ecosystem and fine-tuning pretrained models</td>
-<td>🔤 Fine-tune BERT for Arabic text classification</td>
+<td align="center"><strong>2</strong><br/>👁️<br/><em>📍YOU ARE HERE</em></td>
+<td><strong>Attention Mechanisms</strong></td>
+<td>Dot-product → scaled → causal → multi-head attention, step by step</td>
+<td>🔢 Full MultiHeadAttention module with masks and dropout</td>
 </tr>
 <tr>
-<td align="center"><strong>7</strong><br/>🏗️</td>
-<td><strong>Classification Hub</strong></td>
-<td>Applying everything independently across all five data modalities</td>
-<td>📊🖼️🎵📝 Five open-ended projects — no guidance, just the problem</td>
+<td align="center"><strong>3</strong><br/>🏗️</td>
+<td><strong>GPT Architecture</strong></td>
+<td>How LayerNorm, GELU, FFN, and residuals build a transformer block</td>
+<td>🧠 124M-parameter GPT-2 Small — runnable inference from scratch</td>
+</tr>
+<tr>
+<td align="center"><strong>4</strong><br/>⚡</td>
+<td><strong>Training Loop</strong></td>
+<td>Loss functions, AdamW, gradient clipping, and text generation</td>
+<td>🏋️ Train on 1.9M tokens, generate Harry Potter–style text</td>
+</tr>
+<tr>
+<td align="center"><strong>5</strong><br/>🎯</td>
+<td><strong>SFT: Classification</strong></td>
+<td>How fine-tuning adapts a pretrained LLM for a downstream task</td>
+<td>📊 Replace LM head with classifier — accuracy, F1, confusion matrix</td>
+</tr>
+<tr>
+<td align="center"><strong>6</strong><br/>💬</td>
+<td><strong>SFT: Instruction Following</strong></td>
+<td>How instruction tuning shapes a model's response behaviour</td>
+<td>🤖 Fine-tune GPT to follow prompts in [INSTRUCTION]/[RESPONSE] format</td>
 </tr>
 </tbody>
 </table>
