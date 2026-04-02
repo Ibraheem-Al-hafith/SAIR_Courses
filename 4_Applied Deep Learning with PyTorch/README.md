@@ -4,21 +4,20 @@
 
 **📍 Location:** `4_Applied Deep Learning with PyTorch/`
 **🎯 Prerequisite:** Module 3 – Neural Networks from Scratch
-**➡️ Next Module:** MLOps & Deployment (The Grand Finale)
+**➡️ Next Module:** `5_GPT from Scratch/`
 
-Welcome to **Module 4** of **SAIR** – your comprehensive journey into applied deep learning with PyTorch. This module bridges theory and practice, taking you from tensor operations all the way to building a GPT from scratch, with stops along the way for CNNs, YOLOv8, RNNs, LSTMs, and HuggingFace transformers.
+Welcome to **Module 4** of **SAIR** – your comprehensive journey into applied deep learning with PyTorch. This module bridges theory and practice, taking you from tensor operations all the way to modern architectures, with stops along the way for CNNs, YOLOv8, RNNs, LSTMs, and HuggingFace transformers.
 
 ---
 
 ## 🎯 Module Overview
 
-This module is structured in five progressive sections:
+This module is structured in four progressive sections:
 
 1. **PyTorch Fundamentals** – Tensors, autograd, training loops
 2. **Computer Vision with CNNs** – From scratch to YOLOv8 and ViTs
 3. **Sequence Modeling & NLP** – RNNs, LSTMs, HuggingFace, fine-tuning
-4. **GPT from Scratch** – Build a transformer language model end to end
-5. **Classification Hub** – Five open-ended projects across all modalities
+4. **Classification Hub** – Five open-ended projects across all modalities
 
 ---
 
@@ -127,22 +126,7 @@ python run_pipeline.py
 
 ---
 
-### **4 — GPT from Scratch**
-📁 `4_GPT from scratch/`
-
-Build a GPT-style transformer language model from the ground up — no HuggingFace, no shortcuts.
-
-| Notebook | What you build |
-|----------|---------------|
-| `1.DATA.ipynb` | Data loading, tokenization, batching |
-| `2.ATTENTION.ipynb` | Self-attention and multi-head attention |
-| `3.GPT.ipynb` | Full GPT architecture |
-| `4.TRAIN.ipynb` | Training loop and generation |
-| `4.TRAIN_Pro.ipynb` | Optimized training with advanced techniques |
-
----
-
-### **Classification Hub**
+### **4 — Classification Hub**
 📁 `Classification Hub/`
 
 Five open-ended project notebooks — one per data modality.
@@ -252,13 +236,6 @@ See `Classification Hub/README.md` for what each submission must include.
 │       ├── run_pipeline.py
 │       └── requirements.txt
 │
-├── 4_GPT from scratch/
-│   ├── 1.DATA.ipynb
-│   ├── 2.ATTENTION.ipynb
-│   ├── 3.GPT.ipynb
-│   ├── 4.TRAIN.ipynb
-│   └── 4.TRAIN_Pro.ipynb
-│
 ├── Classification Hub/
 │   ├── Ex_1_Tabular_Classification.ipynb
 │   ├── Ex_2_Image_Classification.ipynb
@@ -309,11 +286,11 @@ See `Classification Hub/README.md` for what each submission must include.
 4. `3_Sequence and NLP/8B_Hugging_Face_Finetuning.ipynb` – Fine-tuning
 5. Explore the Text Classification production pipeline
 
-### **Phase 4: GPT from Scratch** (Week 7)
-1. `4_GPT from scratch/1.DATA.ipynb` through `4.TRAIN_Pro.ipynb` — in order
-
-### **Phase 5: Classification Hub** (Ongoing)
+### **Phase 4: Classification Hub** (Ongoing)
 Work through all five projects independently. No guidance — just the problem brief and the dataset.
+
+### **Phase 5: GPT from Scratch** → Module 5
+Continue to `5_GPT from scratch/` — a standalone module dedicated to building a GPT-style language model end to end.
 
 ---
 
@@ -328,7 +305,6 @@ After completing this module, you will be able to:
 - **Build** sequence models with RNNs and LSTMs
 - **Use** the HuggingFace ecosystem end to end
 - **Fine-tune** pretrained transformers for downstream tasks
-- **Build** a GPT-style language model from scratch
 - **Apply** your skills independently across all five major data modalities
 
 ---
@@ -385,6 +361,7 @@ jupyter notebook
 - **GPU**: All notebooks detect CUDA automatically. Check with `torch.cuda.is_available()`.
 - **Lab Submissions**: Place completed labs in `lab_assignments/[your_name]/`
 - **Classification Hub**: Open-ended projects. Read the brief, build the solution.
+- **GPT Deep Dive**: Covered in Module 5 (`5_GPT from scratch/`).
 - **Model Files**: Saved YOLO and RNN/LSTM models are included and ready to use.
 - **UV Speed**: UV is significantly faster than pip. ⚡
 

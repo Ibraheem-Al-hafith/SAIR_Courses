@@ -420,3 +420,7 @@ data/cifar-10-batches-py/
 
 # Detection outputs
 detection_output/
+
+# AI agent files
+CLAUDE.md
+.claude/

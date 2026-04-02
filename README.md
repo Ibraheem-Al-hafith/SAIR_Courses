@@ -100,7 +100,7 @@
 │   ├── 🎯 Module 2: Production ML
 │   ├── 🧠 Module 3: Neural Networks
 │   ├── 🔥 Module 4: Deep Learning (Current)
-│   ├── ⚙️ Module 5: MLOps
+│   ├── 🧠 Module 5: GPT from Scratch
 │   └── 💎 Capstone: Real-World Project
 │
 ├── 🚀 SAIR Mid (Coming 2025)
@@ -164,19 +164,19 @@
 </tr>
 <tr style="background: linear-gradient(90deg, #fff3cd 0%, #fff8e1 100%); border-left: 4px solid #ffc107;">
 <td align="center"><strong>4 🔥</strong></td>
-<td><strong>Applied Deep Learning</strong><br/><em>PyTorch, CNN, RNN, Transformers, GPT from Scratch</em></td>
+<td><strong>Applied Deep Learning</strong><br/><em>PyTorch, CNN, RNN, Transformers, HuggingFace</em></td>
 <td align="center">6-8 weeks</td>
 <td align="center">⚡ <strong>LIVE NOW</strong></td>
-<td>Vision apps, NLP pipelines, GPT language model</td>
+<td>Vision apps, NLP pipelines, fine-tuned transformers</td>
 <td>Modern AI development</td>
 </tr>
 <tr>
-<td align="center"><strong>5 ⚙️</strong></td>
-<td><strong>MLOps & Scalable Systems</strong><br/><em>Docker, CI/CD, Monitoring, Cloud</em></td>
+<td align="center"><strong>5 🧠</strong></td>
+<td><strong>GPT from Scratch</strong><br/><em>Attention, transformer architecture, SFT</em></td>
 <td align="center">4-6 weeks</td>
-<td align="center">📋 Starting Soon</td>
-<td>Production-ready AI service</td>
-<td>DevOps for ML</td>
+<td align="center">⚡ <strong>LIVE NOW</strong></td>
+<td>GPT language model, instruction-following fine-tuning</td>
+<td>LLM fundamentals</td>
 </tr>
 <tr style="background-color: #e8f5e9; border-left: 4px solid #4caf50;">
 <td align="center"><strong>💎 Capstone</strong></td>
@@ -271,13 +271,7 @@
 <td>🔤 Fine-tune BERT for Arabic text classification</td>
 </tr>
 <tr>
-<td align="center"><strong>7</strong><br/>🧠</td>
-<td><strong>GPT from Scratch</strong></td>
-<td>Self-attention, multi-head attention, and the full transformer architecture</td>
-<td>🤖 Build and train a GPT language model on real text</td>
-</tr>
-<tr>
-<td align="center"><strong>8</strong><br/>🏗️</td>
+<td align="center"><strong>7</strong><br/>🏗️</td>
 <td><strong>Classification Hub</strong></td>
 <td>Applying everything independently across all five data modalities</td>
 <td>📊🖼️🎵📝 Five open-ended projects — no guidance, just the problem</td>
