@@ -16,8 +16,8 @@ No HuggingFace `from_pretrained`. No shortcuts. Just PyTorch and first principle
 
 This module is structured in two parts:
 
-1. **6 Lectures** — progressive notebooks building every component from the ground up
-2. **Modular Pipeline** — a production-style reimplementation of the full stack as clean, importable Python modules
+1. **5 Core Notebooks** — progressive notebooks building every component from the ground up
+2. **3 Appendix Notebooks** — PyTorch crash course + two supervised fine-tuning tracks
 
 ### What You Will Build
 
@@ -25,20 +25,23 @@ This module is structured in two parts:
 Raw Text (Harry Potter corpus)
     │
     ▼
-[ Lecture 1 ] Tokenizer + DataLoader
+[ Notebook 1 ] Tokenizer + DataLoader
     │
     ▼
-[ Lecture 2 ] Attention Mechanism (dot-product → causal → multi-head)
+[ Notebook 2 ] Attention Mechanism (dot-product → causal → multi-head)
     │
     ▼
-[ Lecture 3 ] Full GPT Architecture (LayerNorm, GELU, FFN, TransformerBlock)
+[ Notebook 3 ] Full GPT Architecture (LayerNorm, GELU, FFN, TransformerBlock)
     │
     ▼
-[ Lecture 4 ] Training Loop (loss, optimiser, checkpointing, generation)
+[ Notebook 4 ] Training Loop — trainerV0 → V1 → V2 → V3 → V4 (DDP)
     │
-    ├──▶ [ Lecture 5 ] SFT — Text Classification
+    ▼
+[ Notebook 5 ] Inference — generateV0 → V1 → V2 → V3 (Beam Search) + Gradio UI
     │
-    └──▶ [ Lecture 6 ] SFT — Instruction Following
+    ├──▶ [ Appendix 1 ] SFT — Text Classification
+    │
+    └──▶ [ Appendix 2 ] SFT — Instruction Following
 ```
 
 ---
@@ -93,21 +96,48 @@ Raw Text (Harry Potter corpus)
 
 ---
 
-### Lecture 4 — Training Loop
+### Notebook 4 — Training Loop
 📓 `4.TRAIN.ipynb` · **⏱ 6–8 hours** (+ training time)
 
-| Topic | What You Build |
-|-------|---------------|
-| Cross-entropy loss | Next-token prediction objective |
-| AdamW optimiser | With weight decay and gradient clipping |
-| Training loop | Epoch loop, loss tracking, val loss monitoring |
-| Text generation | Greedy decoding and temperature sampling |
-| Checkpointing | Save and reload model weights |
+Five trainer versions, each a direct upgrade of the last:
+
+| Version | What's Added |
+|---------|-------------|
+| `trainerV0` | Forward → Loss → Backward → Step. Overfit a single batch. |
+| `trainerV1` | Full dataset loop + evaluation + live text generation + checkpoints |
+| `trainerV2` | TF32 + Mixed Precision (FP16) + Flash Attention + `torch.compile` |
+| `trainerV3` | Gradient clipping + cosine LR scheduling + gradient accumulation |
+| `trainerV4` | DDP multi-GPU (production scale — code snippet + `torchrun` guide) |
 
 ---
 
-### Lecture 5 — SFT: Text Classification
-📓 `5.SFT_Text_Classification.ipynb` · **⏱ 4–5 hours**
+### Notebook 5 — Inference & Text Generation
+📓 `5.INFERENCE.ipynb` · **⏱ 3–4 hours**
+
+Loads pretrained GPT-2 weights and builds four generation strategies from scratch:
+
+| Version | What's Added |
+|---------|-------------|
+| `generateV0` | Pure greedy — always picks the most probable token |
+| `generateV1` | + Temperature — controls randomness |
+| `generateV2` | + Top-k and Top-p (nucleus) — constrains the candidate pool |
+| `generateV3` | + Beam search — explores multiple sequences in parallel |
+
+Ends with a **Gradio UI** wrapping `generateV3`.
+
+---
+
+## 📎 Appendix Notebooks
+
+### Appendix 0 — PyTorch Crash Course
+📓 `A0.PYTORCH_CRASH_COURSE.ipynb` · **⏱ 2–3 hours**
+
+Just enough PyTorch to follow the GPT notebooks — tensors, autograd, `nn.Module`, training loop, GPU, DataLoader.
+
+---
+
+### Appendix 1 — SFT: Text Classification
+📓 `A1.SFT_Text_Classification.ipynb` · **⏱ 4–5 hours**
 
 Fine-tune the pretrained GPT on a labelled classification dataset.
 
@@ -120,15 +150,15 @@ Fine-tune the pretrained GPT on a labelled classification dataset.
 
 ---
 
-### Lecture 6 — SFT: Instruction Following
-📓 `6.SFT_Instruction_Following.ipynb` · **⏱ 4–5 hours**
+### Appendix 2 — SFT: Instruction Following
+📓 `A2.SFT_Instruction_Following.ipynb` · **⏱ 4–5 hours**
 
 Fine-tune the pretrained GPT to follow instructions in a prompt-response format.
 
 | Topic | Details |
 |-------|---------|
 | Task | Instruction following / chat-style generation |
-| Format | `[INSTRUCTION] ... [RESPONSE] ...` prompt template |
+| Format | `(instruction, response)` prompt template |
 | Approach | Supervised fine-tuning on instruction-response pairs |
 | Evaluation | Qualitative generation + loss on response tokens only |
 
@@ -138,10 +168,11 @@ Fine-tune the pretrained GPT to follow instructions in a prompt-response format.
 
 | Task | CPU Only | T4 GPU (Colab) | GPU 8 GB+ |
 |------|----------|----------------|-----------|
-| Lectures 1–3 (no training) | ✅ Fine | ✅ Fast | ✅ Fast |
-| Lecture 4 — full training run | ⚠️ 12–24 hrs | ~2–3 hrs/epoch | ~30–60 min/epoch |
-| Lecture 5 — SFT classification | ⚠️ Slow | ~30–60 min | ~10–15 min |
-| Lecture 6 — SFT instruction | ⚠️ Slow | ~45–90 min | ~15–30 min |
+| Notebooks 1–3 (no training) | ✅ Fine | ✅ Fast | ✅ Fast |
+| Notebook 4 — full training run | ⚠️ 12–24 hrs | ~2–3 hrs/epoch | ~30–60 min/epoch |
+| Notebook 5 — inference | ✅ Fine | ✅ Fast | ✅ Fast |
+| Appendix 1 — SFT classification | ⚠️ Slow | ~30–60 min | ~10–15 min |
+| Appendix 2 — SFT instruction | ⚠️ Slow | ~45–90 min | ~15–30 min |
 
 > **Recommended:** Google Colab T4 GPU (free tier) is sufficient for all lectures.  
 > For Lecture 4 on CPU: reduce `GPT_CONFIG` to a smaller model (e.g., 4 layers, 256 dim) to test your loop first.
@@ -227,17 +258,24 @@ No downloads required.
 
 ```
 5_GPT from scratch/
-├── 1.DATA.ipynb                    # Lecture 1 — tokenization & data pipeline
-├── 2.ATTENTION.ipynb               # Lecture 2 — attention mechanisms
-├── 3.GPT.ipynb                     # Lecture 3 — full GPT architecture
-├── 4.TRAIN.ipynb                   # Lecture 4 — training loop
-├── 5.SFT_Text_Classification.ipynb # Lecture 5 — classification fine-tuning
-├── 6.SFT_Instruction_Following.ipynb # Lecture 6 — instruction fine-tuning
-├── data/
-│   ├── train_ids.bin               # ~1.9M tokens (90% of corpus)
-│   ├── val_ids.bin                 # ~148K tokens (7%)
-│   └── test_ids.bin                # ~61K tokens (3%)
-├── pipeline/                       # Modular production implementation
+├── 1.DATA.ipynb                      # Notebook 1 — tokenization & data pipeline
+├── 2.ATTENTION.ipynb                 # Notebook 2 — attention mechanisms
+├── 3.GPT.ipynb                       # Notebook 3 — full GPT architecture
+├── 4.TRAIN.ipynb                     # Notebook 4 — training loop (V0→V4)
+├── 5.INFERENCE.ipynb                 # Notebook 5 — inference & generation (V0→V3)
+├── A0.PYTORCH_CRASH_COURSE.ipynb     # Appendix 0 — PyTorch crash course
+├── A1.SFT_Text_Classification.ipynb  # Appendix 1 — SFT: classification
+├── A2.SFT_Instruction_Following.ipynb# Appendix 2 — SFT: instruction following
+├── UTILS/
+│   ├── model.py                      # GPTModel (shared by all notebooks)
+│   ├── generate.py                   # generation utilities
+│   ├── load_weights.py               # HuggingFace weight loader
+│   └── finetune_utils.py             # SFT helpers
+├── data/                             # Generated by Notebook 1 (gitignored)
+│   ├── train_ids.bin                 # ~1.9M tokens (90% of corpus)
+│   ├── val_ids.bin                   # ~148K tokens (7%)
+│   └── test_ids.bin                  # ~61K tokens (3%)
+├── images/                           # Diagrams used by appendix notebooks
 ├── Resources/
 │   ├── raschka_llm_from_scratch.pdf          # Primary textbook
 │   ├── raschka_llm_from_scratch_cover.jpg    # Book cover
@@ -282,14 +320,15 @@ All materials are in `Resources/` — read in parallel with the lectures, not af
 
 This module is built around this book. Every lecture maps directly to a chapter:
 
-| Lecture | Book Chapter |
+| Notebook | Book Chapter |
 |---------|-------------|
-| Lecture 1 — Data & Tokenization | Ch. 2: Working with text data |
-| Lecture 2 — Attention | Ch. 3: Coding attention mechanisms |
-| Lecture 3 — GPT Architecture | Ch. 4: Implementing a GPT model from scratch |
-| Lecture 4 — Training | Ch. 5: Pretraining on unlabeled data |
-| Lecture 5 — SFT: Classification | Ch. 6: Fine-tuning for classification |
-| Lecture 6 — SFT: Instruction Following | Ch. 7: Fine-tuning to follow instructions |
+| 1 — Data & Tokenization | Ch. 2: Working with text data |
+| 2 — Attention | Ch. 3: Coding attention mechanisms |
+| 3 — GPT Architecture | Ch. 4: Implementing a GPT model from scratch |
+| 4 — Training | Ch. 5: Pretraining on unlabeled data |
+| 5 — Inference | Ch. 5: Decoding strategies |
+| Appendix 1 — SFT: Classification | Ch. 6: Fine-tuning for classification |
+| Appendix 2 — SFT: Instruction Following | Ch. 7: Fine-tuning to follow instructions |
 
 Read each chapter **before** its lecture. The notebook is your hands-on implementation of what the book explains.
 
