@@ -375,6 +375,7 @@
 - ✅ **Complete NeetCode 75 (LeetCode Pattern Mastery)**
 - ✅ Submit and present capstone project that solves real problems
 - ✅ Complete all mandatory reading books
+- ✅ **Complete [The Missing Semester of Your CS Degree](https://youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L) (shell, tools, and CS fundamentals)**
 - ✅ Watch MLOps Fundamentals Playlist and implement concepts
 
 </td>
