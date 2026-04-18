@@ -401,7 +401,7 @@
 - ✅ **Complete NeetCode 75 (LeetCode Pattern Mastery)**
 - ✅ Submit and present capstone project that solves real problems
 - ✅ Complete all mandatory reading books
-- ✅ **Complete [The Missing Semester of Your CS Degree](https://youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L) (shell, tools, and CS fundamentals)**
+- ✅ **Complete [The Missing Semester of Your CS Degree](#️⃣-the-missing-semester-of-your-cs-degree) (shell, vim, git internals, debugging, profiling)**
 - ✅ Watch MLOps Fundamentals Playlist and implement concepts
 
 </td>
@@ -497,6 +497,148 @@ To fully complete the SAIR Jr. program, students must finish the following books
 - *Python Data Science Handbook*
 - *Practical MLOps*
 - *Machine Learning with PyTorch and Scikit-Learn* — Yuxi (Hayden) Liu, Sebastian Raschka, and Vahid Mirjalili
+
+---
+
+## 🖥️ **The Missing Semester of Your CS Degree**
+
+<div align="center">
+
+### **🎯 Why We Require This: Tools Are Part of the Craft**
+
+[![Missing Semester](https://img.shields.io/badge/🖥️_MISSING_SEMESTER_REQUIRED-FF6B35?style=for-the-badge&logo=youtube&logoColor=white)](https://youtube.com/playlist?list=PLyzOVJj3bHQunmnnTXrNbZnBaCA-ieK4L)
+
+**Most CS programs skip the tools you use every day.**  
+This playlist fills that gap — shell, scripting, Git internals, debugging, and more.  
+Every SAIR engineer must own these skills before the Capstone.
+
+**Target Completion:** Alongside Modules 0–2  
+**Weekly Commitment:** 1 lecture/week (≈10 weeks total, ~1 hour each)
+
+</div>
+
+### 📊 **What You'll Learn**
+
+<table>
+<thead>
+<tr>
+<th width="25%">Lecture</th>
+<th width="40%">What You'll Master</th>
+<th width="35%">Why It Matters in SAIR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shell & Scripting</strong></td>
+<td>Navigate the filesystem, automate tasks, write shell scripts</td>
+<td>Run pipelines, manage data, automate experiments</td>
+</tr>
+<tr>
+<td><strong>Shell Tools & Scripting</strong></td>
+<td>find, grep, sed, awk, environment variables, aliases</td>
+<td>Debug data pipelines and environment issues fast</td>
+</tr>
+<tr>
+<td><strong>Editors (Vim)</strong></td>
+<td>Modal editing, motions, macros — editing at the speed of thought</td>
+<td>Edit configs and code on remote machines without a GUI</td>
+</tr>
+<tr>
+<td><strong>Data Wrangling</strong></td>
+<td>Transform and clean data using command-line tools</td>
+<td>Pre-process raw datasets before they hit your notebook</td>
+</tr>
+<tr>
+<td><strong>Command-Line Environment</strong></td>
+<td>tmux, job control, dotfiles, SSH, remote workflows</td>
+<td>Work productively on Colab, cloud VMs, and GPU servers</td>
+</tr>
+<tr>
+<td><strong>Version Control (Git)</strong></td>
+<td>Git internals, branching, merging, rebasing, bisect</td>
+<td>Contribute to SAIR, collaborate on projects, own your history</td>
+</tr>
+<tr>
+<td><strong>Debugging & Profiling</strong></td>
+<td>pdb, strace, perf, flame graphs, timing bottlenecks</td>
+<td>Find why your training loop is slow or your model is crashing</td>
+</tr>
+<tr>
+<td><strong>Metaprogramming</strong></td>
+<td>Make, dependency management, CI, testing, semantic versioning</td>
+<td>Build reproducible ML projects with proper tooling</td>
+</tr>
+<tr>
+<td><strong>Security & Cryptography</strong></td>
+<td>Entropy, hashing, SSH keys, GPG, permissions</td>
+<td>Secure your API keys, models, and production systems</td>
+</tr>
+<tr>
+<td><strong>Potpourri & Q&A</strong></td>
+<td>Keyboard shortcuts, daemons, FUSE, backups, notebooks</td>
+<td>Become the engineer who knows how their machine works</td>
+</tr>
+</tbody>
+</table>
+
+### 🗓️ **When to Watch**
+
+<div align="center">
+
+<table>
+<tr>
+<td width="50%" align="center">
+<h4>📅 Phase 1 — Foundations (Modules 0–1)</h4>
+Shell, Shell Tools, Vim, Data Wrangling<br/>
+<em>4 lectures — build your daily workflow</em>
+</td>
+<td width="50%" align="center">
+<h4>📅 Phase 2 — Engineering (Modules 2–3)</h4>
+CLI Environment, Git internals, Debugging<br/>
+<em>3 lectures — level up your dev process</em>
+</td>
+</tr>
+<tr>
+<td align="center">
+<h4>📅 Phase 3 — Production (Module 4+)</h4>
+Metaprogramming, Security, Potpourri<br/>
+<em>3 lectures — production-ready habits</em>
+</td>
+<td align="center">
+<h4>📅 Completion Check</h4>
+All 10 lectures watched<br/>
+Key concepts applied in at least one SAIR project<br/>
+<em>Verified before Capstone submission</em>
+</td>
+</tr>
+</table>
+
+</div>
+
+### 🏆 **The Edge You'll Gain**
+
+<table>
+<tr>
+<td width="50%">
+
+**🔧 Immediate Impact:**
+- Stop losing hours to environment issues
+- Automate repetitive data tasks with shell scripts
+- Debug ML code faster using proper profiling tools
+- Work fluently on remote GPU servers and Colab
+
+</td>
+<td width="50%">
+
+**💼 Career Signal:**
+- Engineers who own their tools stand out in interviews
+- Clean Git history and CI pipelines signal professionalism
+- Security awareness is rare and valued in ML roles
+- These skills compound across every module you take
+
+</td>
+</tr>
+</table>
 
 ---
 
