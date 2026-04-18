@@ -230,15 +230,17 @@
 <td width="60%" align="center">
 <h4>📊 Module Progress</h4>
 <div style="background: #f5f5f5; padding: 10px; border-radius: 8px;">
-<div style="background: linear-gradient(90deg, #4caf50 33%, #e0e0e0 67%); height: 20px; border-radius: 10px;"></div>
-<p style="margin-top: 8px;"><strong>Lectures 1–2 of 6 Complete</strong></p>
+<div style="background: linear-gradient(90deg, #4caf50 40%, #e0e0e0 60%); height: 20px; border-radius: 10px;"></div>
+<p style="margin-top: 8px;"><strong>Notebooks 1–2 of 5 Complete (+ 3 Appendixes)</strong></p>
 </div>
 </td>
 <td width="40%" align="center">
 <h4>🧠 What We're Building</h4>
 <p>🔤 Custom tokenizer + data pipeline<br/>
 👁️ Multi-head causal attention<br/>
-🏗️ Full GPT-2 architecture (124M params)</p>
+🏗️ Full GPT-2 architecture (124M params)<br/>
+⚡ Training loop V0→V4 (DDP)<br/>
+🎲 4 generation strategies + Gradio UI</p>
 </td>
 </tr>
 </table>
@@ -247,10 +249,12 @@
 
 ### 📖 **Module 5 Learning Journey: Build a GPT Language Model**
 
+**5 core notebooks → 3 appendix notebooks → 1 production pipeline**
+
 <table>
 <thead>
 <tr>
-<th width="8%">Lecture</th>
+<th width="8%">Notebook</th>
 <th width="25%">Core Concept</th>
 <th width="32%">What You'll Understand</th>
 <th width="35%">Hands-On Build</th>
@@ -261,37 +265,49 @@
 <td align="center"><strong>1</strong><br/>📦</td>
 <td><strong>Data & Tokenization</strong></td>
 <td>How raw text becomes token IDs ready for a language model</td>
-<td>🔤 Tokenizer + sliding window DataLoader on Harry Potter corpus</td>
+<td>🔤 Custom tokenizer V1/V2 + tiktoken BPE + sliding window DataLoader on 1.9M-token Harry Potter corpus</td>
 </tr>
 <tr style="background-color: #fff8e1; border-left: 3px solid #ff9800;">
 <td align="center"><strong>2</strong><br/>👁️<br/><em>📍YOU ARE HERE</em></td>
 <td><strong>Attention Mechanisms</strong></td>
-<td>Dot-product → scaled → causal → multi-head attention, step by step</td>
-<td>🔢 Full MultiHeadAttention module with masks and dropout</td>
+<td>Dot-product → scaled → causal masking → multi-head attention, step by step</td>
+<td>🔢 Full MultiHeadAttention module with masks and dropout — traced on concrete token examples</td>
 </tr>
 <tr>
 <td align="center"><strong>3</strong><br/>🏗️</td>
 <td><strong>GPT Architecture</strong></td>
-<td>How LayerNorm, GELU, FFN, and residuals build a transformer block</td>
-<td>🧠 124M-parameter GPT-2 Small — runnable inference from scratch</td>
+<td>How LayerNorm, GELU, FFN, and residual connections build a transformer block</td>
+<td>🧠 124M-parameter GPT-2 Small (GPT_CONFIG_124M) — full architecture, runnable from scratch</td>
 </tr>
 <tr>
 <td align="center"><strong>4</strong><br/>⚡</td>
 <td><strong>Training Loop</strong></td>
-<td>Loss functions, AdamW, gradient clipping, and text generation</td>
-<td>🏋️ Train on 1.9M tokens, generate Harry Potter–style text</td>
+<td>Loss functions, AdamW, gradient clipping, cosine LR scheduling, mixed precision, DDP</td>
+<td>🏋️ trainerV0 → V4: overfitting → full loop → TF32/FP16/Flash Attention → cosine LR → multi-GPU DDP</td>
 </tr>
 <tr>
-<td align="center"><strong>5</strong><br/>🎯</td>
-<td><strong>SFT: Classification</strong></td>
-<td>How fine-tuning adapts a pretrained LLM for a downstream task</td>
-<td>📊 Replace LM head with classifier — accuracy, F1, confusion matrix</td>
+<td align="center"><strong>5</strong><br/>🎲</td>
+<td><strong>Inference & Text Generation</strong></td>
+<td>Greedy vs. temperature vs. top-k/top-p vs. beam search — trade-offs and when to use each</td>
+<td>🎯 generateV0 → V3 (beam search) loading real GPT-2 pretrained weights + Gradio UI</td>
 </tr>
-<tr>
-<td align="center"><strong>6</strong><br/>💬</td>
+<tr style="background-color: #f3e5f5; border-left: 3px solid #9c27b0;">
+<td align="center"><strong>A0</strong><br/>🐍</td>
+<td><strong>PyTorch Crash Course</strong></td>
+<td>Tensors, autograd, nn.Module, training loop, GPU, DataLoader — just enough to follow the GPT notebooks</td>
+<td>📘 Standalone crash course (do this first if new to PyTorch)</td>
+</tr>
+<tr style="background-color: #f3e5f5; border-left: 3px solid #9c27b0;">
+<td align="center"><strong>A1</strong><br/>🎯</td>
+<td><strong>SFT: Text Classification</strong></td>
+<td>How supervised fine-tuning adapts a pretrained LLM for a downstream classification task</td>
+<td>📊 Replace LM head with classification head — accuracy, F1, confusion matrix</td>
+</tr>
+<tr style="background-color: #f3e5f5; border-left: 3px solid #9c27b0;">
+<td align="center"><strong>A2</strong><br/>💬</td>
 <td><strong>SFT: Instruction Following</strong></td>
-<td>How instruction tuning shapes a model's response behaviour</td>
-<td>🤖 Fine-tune GPT to follow prompts in [INSTRUCTION]/[RESPONSE] format</td>
+<td>How instruction tuning shapes a model's response behaviour using prompt-response pairs</td>
+<td>🤖 Fine-tune GPT on (instruction, response) pairs — loss computed on response tokens only</td>
 </tr>
 </tbody>
 </table>
