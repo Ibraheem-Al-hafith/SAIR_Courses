@@ -47,6 +47,7 @@
 | 3 — Neural Networks from Scratch | `3_Neural%20Network%20from%20scratch/` | [README](3_Neural%20Network%20from%20scratch/README.md) | ✅ Complete |
 | 4 — Applied Deep Learning with PyTorch | `4_Applied Deep Learning with PyTorch/` | [README](4_Applied%20Deep%20Learning%20with%20PyTorch/README.md) | ⚡ Active (75%) |
 | 5 — GPT from Scratch | `5_GPT from scratch/` | [README](5_GPT%20from%20scratch/README.md) | 🔥 In Progress |
+| 6 — MLOps | `6_MLOps/` | — | 🔜 Incoming |
 
 ---
 
@@ -114,6 +115,7 @@
 │   ├── 🧠 Module 3: Neural Networks
 │   ├── 🔥 Module 4: Deep Learning ✅
 │   ├── 🧠 Module 5: GPT from Scratch (Current)
+│   ├── ⚙️ Module 6: MLOps (Incoming)
 │   └── 💎 Capstone: Real-World Project
 │
 ├── 🚀 SAIR Mid (Planned Next Stage)
@@ -190,6 +192,14 @@
 <td align="center">⚡ <strong>LIVE NOW</strong></td>
 <td>GPT language model, instruction-following fine-tuning</td>
 <td>LLM fundamentals</td>
+</tr>
+<tr>
+<td align="center"><strong>6 ⚙️</strong></td>
+<td><strong>MLOps</strong><br/><em>CI/CD, monitoring, serving, infrastructure</em></td>
+<td align="center">4-6 weeks</td>
+<td align="center">🔜 <strong>Incoming</strong></td>
+<td>Deployed ML system with monitoring</td>
+<td>Production operations</td>
 </tr>
 <tr style="background-color: #e8f5e9; border-left: 4px solid #4caf50;">
 <td align="center"><strong>💎 Capstone</strong></td>
