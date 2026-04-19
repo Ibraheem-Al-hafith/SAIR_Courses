@@ -4,7 +4,7 @@
 
 **📍 Location:** `5_GPT from scratch/`  
 **🎯 Prerequisite:** [Module 4: Applied Deep Learning with PyTorch](../4_Applied%20Deep%20Learning%20with%20PyTorch/README.md)  
-**➡️ Next Module:** Capstone (coming soon)
+**➡️ Capstone Project:** [SAIR miniGPT](https://github.com/SAIR-Org/miniGPT) — deploy everything you built as a full-stack system
 
 Welcome to **Module 5** of **SAIR** — the deepest technical challenge of the entire track. You will build a GPT-style language model from absolute scratch: every tokenizer, every attention head, every training loop, and every fine-tuning step. By the end you will have a working LLM trained on real text and fine-tuned for two downstream tasks.
 
@@ -356,6 +356,26 @@ The paper that started everything. Read it alongside Lecture 2 (Attention). The 
 |----------|------------|
 | [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) | After Lecture 4 — understand why scale matters |
 | [nanoGPT by Karpathy](https://github.com/karpathy/nanoGPT) | After finishing all lectures — compare implementations |
+
+---
+
+---
+
+## 🏁 Capstone — SAIR miniGPT
+
+After completing all lectures, the capstone packages everything into a real, deployable system:
+
+| What | Details |
+|------|---------|
+| 🖥️ `sair` CLI | `prepare` → `train` → `generate` → `ui` in one command |
+| ☁️ Modal cloud training | A100 GPU training with W&B live loss curves |
+| 🌐 Web UI | Chat with your trained model at `localhost:7860` |
+| 🔁 Resume training | Continue from any saved checkpoint |
+| 🚀 Pretrained GPT-2 | Load OpenAI weights (124M → 1.5B) with no training |
+
+**→ [SAIR miniGPT repo](https://github.com/SAIR-Org/miniGPT)**
+
+Every function in miniGPT (`GPTModel`, `generateV0`→`V3`, `trainerV3`, beam search) maps 1-to-1 to a notebook cell you wrote in this module. The capstone is not a new project — it's your code, productionised.
 
 ---
 

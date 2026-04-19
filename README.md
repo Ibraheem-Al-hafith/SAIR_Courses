@@ -46,7 +46,7 @@
 | 2 — Classification & Pipelines | `2_Classification/` | [README](2_Classification/README.md) | ✅ Complete |
 | 3 — Neural Networks from Scratch | `3_Neural%20Network%20from%20scratch/` | [README](3_Neural%20Network%20from%20scratch/README.md) | ✅ Complete |
 | 4 — Applied Deep Learning with PyTorch | `4_Applied Deep Learning with PyTorch/` | [README](4_Applied%20Deep%20Learning%20with%20PyTorch/README.md) | ⚡ Active (75%) |
-| 5 — GPT from Scratch | `5_GPT from scratch/` | [README](5_GPT%20from%20scratch/README.md) | 🔥 In Progress |
+| 5 — GPT from Scratch | `5_GPT from scratch/` | [README](5_GPT%20from%20scratch/README.md) · [⚡ Capstone](https://github.com/SAIR-Org/miniGPT) | 🔥 In Progress |
 | 6 — MLOps | `6_MLOps/` | — | 🔜 Incoming |
 
 ---
