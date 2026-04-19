@@ -192,35 +192,6 @@ Fine-tune the pretrained GPT to follow instructions in a prompt-response format.
 
 ---
 
-## 🏗️ Modular Pipeline
-📁 `pipeline/`
-
-The same implementation from the lectures, restructured as a production-ready Python package:
-
-```
-pipeline/
-├── data/
-│   ├── loader.py          # book loading + train/val/test split
-│   ├── tokenizer.py       # tiktoken wrapper
-│   └── dataset.py         # GPT2Dataset + DataLoader factory
-├── model/
-│   ├── attention.py       # MultiHeadAttention
-│   ├── blocks.py          # TransformerBlock, LayerNorm, GELU, FeedForward
-│   └── gpt.py             # GPTModel + config
-├── training/
-│   ├── trainer.py         # training loop, checkpointing
-│   └── generate.py        # text generation utilities
-├── sft/
-│   ├── classifier.py      # classification fine-tuning
-│   └── instruct.py        # instruction fine-tuning
-├── config.py              # GPT_CONFIG_124M and variants
-└── run.py                 # single entry point: train / generate / fine-tune
-```
-
-The pipeline is the difference between *understanding* the code and *using* it in production. Once you have completed all 6 lectures, you will reimplement everything modularly — no notebooks, no scaffolding.
-
----
-
 ## 🛠️ Tech Stack
 
 | Tool | Role |
@@ -241,11 +212,9 @@ cd "5_GPT from scratch"
 
 # Run a lecture notebook
 uv run jupyter notebook 1.DATA.ipynb
-
-# Or run the full pipeline (after completing lectures)
-uv run python pipeline/run.py --mode train
-uv run python pipeline/run.py --mode generate --prompt "Harry looked at"
 ```
+
+Once you finish all lectures, move to the capstone — **[SAIR miniGPT](https://github.com/SAIR-Org/miniGPT)** — where everything gets packaged into a real CLI, cloud training, and web UI.
 
 **Data:** the Harry Potter books are already in the repo at  
 `4_Applied Deep Learning with PyTorch/3_Sequence and NLP/harry_potter_txt/`
