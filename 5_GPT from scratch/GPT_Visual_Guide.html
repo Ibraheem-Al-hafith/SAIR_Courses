@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>GPT from Scratch — Visual Guide</title>
+<style>
+:root{
+  --bg:#0d0f1a;--s1:#13162a;--s2:#1a1f38;--s3:#222844;
+  --accent:#818cf8;--cyan:#34d399;--amber:#fbbf24;--rose:#f87171;--purple:#c084fc;
+  --text:#e2e8f0;--muted:#94a3b8;--border:#252d52;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:16px;line-height:1.65;padding:2.5rem 1.5rem;}
+.page{max-width:1080px;margin:0 auto;}
+
+/* HERO */
+.hero{text-align:center;padding:3.5rem 1rem 3rem;border-bottom:2px solid var(--border);margin-bottom:3rem;}
+.badge{display:inline-block;background:var(--accent);color:#fff;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:.35rem 1rem;border-radius:999px;margin-bottom:1.2rem;}
+.hero h1{font-size:2.8rem;font-weight:900;line-height:1.15;margin-bottom:.8rem;}
+.hero h1 em{color:var(--accent);font-style:normal;}
+.hero p{color:var(--muted);font-size:1.05rem;max-width:600px;margin:0 auto;}
+
+/* PIPELINE */
+.pipeline{display:flex;border:2px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:3rem;}
+.pip-step{flex:1;text-align:center;padding:1.1rem .5rem;background:var(--s1);}
+.pip-step:not(:last-child){border-right:2px solid var(--border);}
+.pip-num{font-size:1.8rem;font-weight:900;line-height:1;}
+.pip-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:.2rem;}
+.n1 .pip-num{color:var(--accent);}
+.n2 .pip-num{color:var(--cyan);}
+.n3 .pip-num{color:var(--amber);}
+.n4 .pip-num{color:var(--rose);}
+.n5 .pip-num{color:var(--purple);}
+
+/* PHASE HEADER */
+.phase{font-size:.8rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;margin:3.5rem 0 1.5rem;display:flex;align-items:center;gap:.8rem;}
+.phase::after{content:'';flex:1;height:2px;background:var(--border);}
+.ph-1{color:var(--accent);}
+.ph-2{color:var(--cyan);}
+.ph-3{color:var(--amber);}
+.ph-4{color:var(--rose);}
+.ph-5{color:var(--purple);}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.4rem;}
+@media(max-width:760px){.g2,.g3{grid-template-columns:1fr;}}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:1.8rem 2rem;display:flex;flex-direction:column;gap:1.1rem;}
+.card h3{font-size:1.1rem;font-weight:700;color:var(--text);line-height:1.3;}
+.card p{font-size:.95rem;color:var(--muted);line-height:1.7;}
+.card p strong{color:var(--text);}
+.card svg{display:block;width:100%;}
+.bl{border-left:4px solid var(--accent);}
+.bc{border-left:4px solid var(--cyan);}
+.ba{border-left:4px solid var(--amber);}
+.br{border-left:4px solid var(--rose);}
+.bp{border-left:4px solid var(--purple);}
+
+/* INSIGHT BOX */
+.insight{background:var(--s2);border-radius:10px;padding:.9rem 1.1rem;font-size:.9rem;color:var(--muted);border-left:4px solid;}
+.insight strong{color:var(--text);}
+.i-blue{border-color:var(--accent);}
+.i-cyan{border-color:var(--cyan);}
+.i-amber{border-color:var(--amber);}
+.i-rose{border-color:var(--rose);}
+.i-purple{border-color:var(--purple);}
+
+/* TOKEN STRIP */
+.tstrip{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.tok{padding:.28rem .6rem;border-radius:7px;font-size:.88rem;font-weight:700;}
+.t-in{background:#1e3a8a;color:#93c5fd;border:1px solid #3b82f6;}
+.t-tgt{background:#064e3b;color:#6ee7b7;border:1px solid #10b981;}
+.t-dim{background:var(--s2);color:var(--muted);border:1px solid var(--border);}
+
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;}
+.chip{font-size:.82rem;padding:.25rem .7rem;border-radius:8px;background:var(--s2);border:1px solid var(--border);color:var(--text);}
+.chip span{color:var(--amber);font-weight:700;}
+
+/* MINI-GRID inside card */
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+
+/* COMPARISON TABLE */
+.ct{width:100%;border-collapse:collapse;font-size:.92rem;}
+.ct th{background:var(--s2);color:var(--muted);padding:.7rem .9rem;text-align:left;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;}
+.ct td{padding:.75rem .9rem;border-top:1px solid var(--border);vertical-align:top;color:#c8cad8;}
+.ct td:first-child{font-weight:700;color:var(--amber);white-space:nowrap;}
+.ct tr:hover td{background:var(--s2);}
+
+/* Q SECTION */
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;}
+@media(max-width:600px){.q-grid{grid-template-columns:1fr;}}
+.q{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.3rem;}
+.q-tag{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.45rem;}
+.q p{font-size:.9rem;color:#94a3b8;line-height:1.6;}
+
+.footer{text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);font-size:.9rem;color:var(--muted);}
+
+/* ── STICKY NAV ── */
+.sticky-nav{position:fixed;top:1.1rem;right:1.1rem;background:rgba(13,15,26,.94);border:1px solid var(--border);border-radius:14px;padding:.55rem .7rem;display:flex;flex-direction:column;gap:.22rem;z-index:200;backdrop-filter:blur(12px);box-shadow:0 4px 24px #00000055;}
+.snav-item{font-size:.72rem;font-weight:700;padding:.28rem .62rem;border-radius:8px;color:var(--muted);text-decoration:none;transition:all .18s;letter-spacing:.04em;display:block;}
+.snav-item:hover:not(.active){background:var(--s2);color:var(--text);}
+.n1.active{background:var(--accent);color:#fff;}
+.n2.active{background:var(--cyan);color:#0d0f1a;}
+.n3.active{background:var(--amber);color:#0d0f1a;}
+.n4.active{background:var(--rose);color:#fff;}
+.n5.active{background:var(--purple);color:#fff;}
+
+/* ── PIPELINE HOVER ── */
+.pip-step{transition:background .18s;cursor:pointer;}
+.pip-step:hover{background:var(--s2);}
+.pip-step::after{content:attr(title);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1e2440;border:1px solid var(--border);border-radius:6px;padding:.25rem .55rem;font-size:.72rem;color:var(--text);white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .18s;z-index:10;}
+.pip-step:hover::after{opacity:1;}
+.pipeline{position:relative;}
+
+/* ── QUESTION HINTS ── */
+.q-hint-btn{font-size:.74rem;color:var(--accent);background:none;border:none;cursor:pointer;padding:.1rem 0;margin-top:.38rem;font-weight:700;display:block;}
+.q-hint-btn:hover{color:var(--text);}
+.q-hint{max-height:0;overflow:hidden;transition:max-height .32s ease;}
+.q-hint-inner{background:var(--s2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.6rem .85rem;margin-top:.35rem;font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+/* ── HEATMAP HOVER ── */
+#hm-table td{transition:filter .14s,transform .14s;}
+#hm-table td:hover{filter:brightness(1.35);transform:scale(1.07);position:relative;z-index:2;cursor:crosshair;}
+
+/* ── TEMPERATURE WIDGET ── */
+.temp-widget{background:var(--s2);border-radius:12px;padding:1.25rem 1.5rem;}
+.temp-header{display:flex;align-items:center;gap:.9rem;margin-bottom:1rem;flex-wrap:wrap;}
+#temp-slider{flex:1;min-width:120px;accent-color:var(--purple);cursor:pointer;}
+#temp-val{font-size:1.5rem;font-weight:900;color:var(--purple);min-width:52px;flex-shrink:0;}
+#temp-desc{font-size:.82rem;color:var(--muted);}
+.temp-bar-row{display:flex;align-items:center;gap:.65rem;}
+.temp-bar-label{width:46px;font-size:.88rem;color:var(--text);font-weight:700;flex-shrink:0;}
+.temp-bar-track{flex:1;background:#13162a;border-radius:6px;height:30px;overflow:hidden;}
+.temp-bar-fill{height:30px;border-radius:6px;transition:width .22s ease;display:flex;align-items:center;padding-left:.5rem;}
+.temp-bar-pct{font-size:.82rem;font-weight:700;color:#fff;white-space:nowrap;}
+.temp-bar-num{width:44px;font-size:.82rem;color:var(--muted);text-align:right;flex-shrink:0;}
+</style>
+</head>
+<body>
+<div class="page">
+
+<nav class="sticky-nav" aria-label="Section navigation">
+  <a href="#nb1" class="snav-item n1 active">01 Data</a>
+  <a href="#nb2" class="snav-item n2">02 Attn</a>
+  <a href="#nb3" class="snav-item n3">03 GPT</a>
+  <a href="#nb4" class="snav-item n4">04 Train</a>
+  <a href="#nb5" class="snav-item n5">05 Infer</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="badge">SAIR · Module 5</div>
+  <h1>Building <em>GPT</em> from Scratch</h1>
+  <p>Every concept shown with the real numbers from the notebooks — framed around <em>why</em> it works, not just what the code does.</p>
+</div>
+
+<div class="pipeline">
+  <div class="pip-step n1" title="Jump to Data" onclick="document.getElementById('nb1').scrollIntoView({behavior:'smooth'})"><div class="pip-num">01</div><div class="pip-label">Data</div></div>
+  <div class="pip-step n2" title="Jump to Attention" onclick="document.getElementById('nb2').scrollIntoView({behavior:'smooth'})"><div class="pip-num">02</div><div class="pip-label">Attention</div></div>
+  <div class="pip-step n3" title="Jump to GPT Model" onclick="document.getElementById('nb3').scrollIntoView({behavior:'smooth'})"><div class="pip-num">03</div><div class="pip-label">GPT Model</div></div>
+  <div class="pip-step n4" title="Jump to Training" onclick="document.getElementById('nb4').scrollIntoView({behavior:'smooth'})"><div class="pip-num">04</div><div class="pip-label">Training</div></div>
+  <div class="pip-step n5" title="Jump to Inference" onclick="document.getElementById('nb5').scrollIntoView({behavior:'smooth'})"><div class="pip-num">05</div><div class="pip-label">Inference</div></div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     01 · DATA
+════════════════════════════════════════════ -->
+<div class="phase ph-1" id="nb1">01 · Data — Turning Text into a Learning Problem</div>
+
+<!-- TOKENIZATION -->
+<div class="card bl">
+  <h3>Tokenization — The Only Language the Model Speaks</h3>
+  <div class="tstrip" style="margin-bottom:.4rem;">
+    <span style="font-size:.95rem;color:var(--muted);">"It does not do to dwell on dreams"</span>
+    <span style="color:var(--muted);font-size:1.4rem;margin:0 .3rem;">→</span>
+    <span class="tok t-in">1026</span><span class="tok t-in">857</span><span class="tok t-in">407</span>
+    <span class="tok t-in">466</span><span class="tok t-in">284</span><span class="tok t-in">14046</span>
+  </div>
+
+  <svg viewBox="0 0 760 120" height="120">
+    <defs><marker id="a1" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7Z" fill="#475569"/></marker></defs>
+    <!-- Vocab table -->
+    <rect x="0" y="10" width="180" height="100" rx="6" fill="#1a1f38" stroke="#252d52" stroke-width="1.5"/>
+    <text x="90" y="36" fill="#64748b" font-size="12" text-anchor="middle" font-weight="700">Vocabulary Table</text>
+    <text x="90" y="56" fill="#64748b" font-size="11" text-anchor="middle">50,257 rows</text>
+    <text x="90" y="74" fill="#64748b" font-size="11" text-anchor="middle">each row = 768 numbers</text>
+    <text x="90" y="92" fill="#475569" font-size="10" text-anchor="middle">(the embedding matrix)</text>
+    <!-- arrow -->
+    <line x1="180" y1="60" x2="230" y2="60" stroke="#475569" stroke-width="2" marker-end="url(#a1)"/>
+    <text x="205" y="52" fill="#475569" font-size="11" text-anchor="middle">lookup</text>
+    <text x="205" y="76" fill="#fbbf24" font-size="11" text-anchor="middle">ID 1026</text>
+    <!-- result -->
+    <rect x="232" y="32" width="520" height="56" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="252" y="62" fill="#93c5fd" font-size="13">[  0.43,  −0.15,  0.89,  0.22,  −0.07,  0.55,  …  ,  0.71  ]</text>
+    <text x="742" y="80" fill="#4b72b0" font-size="11" text-anchor="end">768 numbers</text>
+    <text x="490" y="108" fill="#475569" font-size="11" text-anchor="middle">These 768 numbers are learned during training — initially random, refined over millions of steps</text>
+  </svg>
+
+  <div class="chips">
+    <div class="chip">Vocabulary: <span>50,257</span> entries (GPT-2 BPE)</div>
+    <div class="chip">Full corpus: <span>6.77M</span> characters → <span>1.89M</span> train tokens</div>
+    <div class="chip">Saved as <span>.bin</span> binary files for fast GPU loading</div>
+  </div>
+  <p>Every word-piece gets an integer ID, and that ID maps to a row in the embedding table. Similar words end up in nearby regions of the 768-dimensional space — not because we told the model to, but because predicting the next token forces it to group similar contexts together.</p>
+</div>
+
+<!-- SLIDING WINDOW -->
+<div class="card bl" style="margin-top:1.4rem;">
+  <h3>Sliding Window — One Book Becomes Millions of Training Examples</h3>
+
+  <svg viewBox="0 0 760 180" height="180">
+    <defs>
+      <marker id="a2" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7Z" fill="#fbbf24"/></marker>
+    </defs>
+    <!-- step labels -->
+    <text x="0" y="30"  fill="#64748b" font-size="12">step 1</text>
+    <text x="0" y="74"  fill="#64748b" font-size="12">step 2</text>
+    <text x="0" y="118" fill="#64748b" font-size="12">step 3</text>
+    <text x="0" y="162" fill="#64748b" font-size="12">step 4</text>
+
+    <!-- ROW 1 -->
+    <rect x="70"  y="10" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="96"  y="33" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">1</text>
+    <rect x="128" y="10" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="154" y="33" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">2</text>
+    <rect x="186" y="10" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="212" y="33" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">3</text>
+    <rect x="244" y="10" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="270" y="33" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">4</text>
+    <text x="310" y="33" fill="#fbbf24" font-size="20">→</text>
+    <rect x="334" y="10" width="52" height="38" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/><text x="360" y="33" fill="#6ee7b7" font-size="14" text-anchor="middle" font-weight="700">5</text>
+
+    <!-- ROW 2 -->
+    <rect x="70"  y="54" width="52" height="38" rx="6" fill="#1a1f38" stroke="#252d52"/><text x="96"  y="77" fill="#2d3a5c" font-size="14" text-anchor="middle">1</text>
+    <rect x="128" y="54" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="154" y="77" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">2</text>
+    <rect x="186" y="54" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="212" y="77" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">3</text>
+    <rect x="244" y="54" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="270" y="77" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">4</text>
+    <rect x="302" y="54" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="328" y="77" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">5</text>
+    <text x="368" y="77" fill="#fbbf24" font-size="20">→</text>
+    <rect x="392" y="54" width="52" height="38" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/><text x="418" y="77" fill="#6ee7b7" font-size="14" text-anchor="middle" font-weight="700">6</text>
+
+    <!-- ROW 3 -->
+    <rect x="70"  y="98" width="52" height="38" rx="6" fill="#1a1f38" stroke="#252d52"/><text x="96"  y="121" fill="#2d3a5c" font-size="14" text-anchor="middle">1</text>
+    <rect x="128" y="98" width="52" height="38" rx="6" fill="#1a1f38" stroke="#252d52"/><text x="154" y="121" fill="#2d3a5c" font-size="14" text-anchor="middle">2</text>
+    <rect x="186" y="98" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="212" y="121" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">3</text>
+    <rect x="244" y="98" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="270" y="121" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">4</text>
+    <rect x="302" y="98" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="328" y="121" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">5</text>
+    <rect x="360" y="98" width="52" height="38" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/><text x="386" y="121" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">6</text>
+    <text x="426" y="121" fill="#fbbf24" font-size="20">→</text>
+    <rect x="450" y="98" width="52" height="38" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/><text x="476" y="121" fill="#6ee7b7" font-size="14" text-anchor="middle" font-weight="700">7</text>
+
+    <!-- ROW 4 label -->
+    <text x="70" y="158" fill="#64748b" font-size="11">… window keeps sliding forward. stride=128 means windows overlap → many more training pairs per book</text>
+
+    <!-- legend -->
+    <rect x="550" y="142" width="18" height="14" rx="3" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="572" y="154" fill="#93c5fd" font-size="11">input</text>
+    <rect x="620" y="142" width="18" height="14" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="642" y="154" fill="#6ee7b7" font-size="11">target</text>
+    <rect x="690" y="142" width="18" height="14" rx="3" fill="#1a1f38" stroke="#252d52"/>
+    <text x="712" y="154" fill="#64748b" font-size="11">past</text>
+  </svg>
+
+  <p>The training task is always the same: given the previous N tokens, predict the next one. With stride=128 and 1.89M training tokens, the model sees hundreds of thousands of overlapping (context → next) pairs from the same books — each one a slightly different view of the same text.</p>
+  <div class="insight i-blue"><strong>Real shapes from the notebook:</strong> Each batch = (32, 512) inputs and (32, 512) targets. 461 batches per epoch. Each of the 32 rows is one sliding window.</div>
+</div>
+
+<!-- BOOKS BAR CHART -->
+<div class="card bl" style="margin-top:1.4rem;">
+  <h3>Harry Potter Corpus — 6.77 Million Characters Across 7 Books</h3>
+  <svg viewBox="0 0 900 220" height="220">
+    <defs><linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#818cf8"/><stop offset="100%" stop-color="#4f46e5"/></linearGradient></defs>
+    <!-- grid -->
+    <line x1="70" y1="20"  x2="890" y2="20"  stroke="#1e2a40" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="70" y1="60"  x2="890" y2="60"  stroke="#1e2a40" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="70" y1="100" x2="890" y2="100" stroke="#1e2a40" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="70" y1="140" x2="890" y2="140" stroke="#1e2a40" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="70" y1="10"  x2="70"  y2="168" stroke="#2a3050" stroke-width="2"/>
+    <line x1="70" y1="168" x2="890" y2="168" stroke="#2a3050" stroke-width="2"/>
+    <!-- y-axis labels -->
+    <text x="62" y="24"  fill="#64748b" font-size="12" text-anchor="end">1.5M</text>
+    <text x="62" y="64"  fill="#64748b" font-size="12" text-anchor="end">1.0M</text>
+    <text x="62" y="104" fill="#64748b" font-size="12" text-anchor="end">0.6M</text>
+    <text x="62" y="144" fill="#64748b" font-size="12" text-anchor="end">0.2M</text>
+    <!-- bars: max 1609K → 148px. scale=148/1609 -->
+    <!-- B1 474K → 43px -->
+    <rect x="88"  y="125" width="100" height="43"  fill="url(#gb)" rx="4"/>
+    <text x="138" y="190" fill="#64748b" font-size="12" text-anchor="middle">Book 1</text>
+    <text x="138" y="118" fill="#c7d2fe" font-size="12" text-anchor="middle">474K</text>
+    <!-- B2 532K → 49px -->
+    <rect x="210" y="119" width="100" height="49"  fill="url(#gb)" rx="4"/>
+    <text x="260" y="190" fill="#64748b" font-size="12" text-anchor="middle">Book 2</text>
+    <text x="260" y="112" fill="#c7d2fe" font-size="12" text-anchor="middle">532K</text>
+    <!-- B3 677K → 62px -->
+    <rect x="332" y="106" width="100" height="62"  fill="url(#gb)" rx="4"/>
+    <text x="382" y="190" fill="#64748b" font-size="12" text-anchor="middle">Book 3</text>
+    <text x="382" y="99"  fill="#c7d2fe" font-size="12" text-anchor="middle">677K</text>
+    <!-- B4 1187K → 109px -->
+    <rect x="454" y="59"  width="100" height="109" fill="url(#gb)" rx="4"/>
+    <text x="504" y="190" fill="#64748b" font-size="12" text-anchor="middle">Book 4</text>
+    <text x="504" y="52"  fill="#c7d2fe" font-size="12" text-anchor="middle">1.19M</text>
+    <!-- B5 1609K → 148px HIGHLIGHT -->
+    <rect x="576" y="20"  width="100" height="148" fill="#f59e0b" rx="4"/>
+    <text x="626" y="190" fill="#64748b" font-size="12" text-anchor="middle">Book 5</text>
+    <text x="626" y="13"  fill="#fcd34d" font-size="12" text-anchor="middle">1.61M ★ largest</text>
+    <!-- B6 1059K → 97px -->
+    <rect x="698" y="71"  width="100" height="97"  fill="url(#gb)" rx="4"/>
+    <text x="748" y="190" fill="#64748b" font-size="12" text-anchor="middle">Book 6</text>
+    <text x="748" y="64"  fill="#c7d2fe" font-size="12" text-anchor="middle">1.06M</text>
+    <!-- B7 1227K → 113px -->
+    <rect x="782" y="55"  width="100" height="113" fill="url(#gb)" rx="4"/>
+    <text x="832" y="190" fill="#64748b" font-size="12" text-anchor="middle">Book 7</text>
+    <text x="832" y="48"  fill="#c7d2fe" font-size="12" text-anchor="middle">1.23M</text>
+    <!-- split annotation -->
+    <text x="480" y="210" fill="#64748b" font-size="11" text-anchor="middle">Split: 90% train (1,891,044 tokens) · 7% val (147,994) · 3% test (61,352)   — split on characters before tokenizing</text>
+  </svg>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     02 · ATTENTION
+════════════════════════════════════════════ -->
+<div class="phase ph-2" id="nb2">02 · Attention — Learning What to Focus On</div>
+
+<!-- QKV -->
+<div class="card bc">
+  <h3>Query · Key · Value — Attention as a Soft Database Lookup</h3>
+  <svg viewBox="0 0 760 200" height="200">
+    <defs><marker id="a3" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7Z" fill="#475569"/></marker></defs>
+
+    <!-- LEFT: hard lookup -->
+    <text x="10" y="18" fill="#64748b" font-size="13" font-weight="700">Traditional lookup (rigid)</text>
+    <rect x="10" y="24" width="160" height="36" rx="6" fill="#1a1f38" stroke="#252d52" stroke-width="1.5"/>
+    <text x="90" y="46" fill="#94a3b8" font-size="13" text-anchor="middle">query: "it"</text>
+    <line x1="90" y1="60" x2="90" y2="80" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="10" y="80" width="160" height="36" rx="6" fill="#292116" stroke="#d97706" stroke-width="1.5"/>
+    <text x="90" y="102" fill="#fcd34d" font-size="12" text-anchor="middle">ONE key must match exactly</text>
+    <line x1="90" y1="116" x2="90" y2="136" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <rect x="10" y="136" width="160" height="36" rx="6" fill="#1a1f38" stroke="#252d52" stroke-width="1.5"/>
+    <text x="90" y="158" fill="#94a3b8" font-size="12" text-anchor="middle">returns exactly 1 value</text>
+    <text x="90" y="185" fill="#7f1d1d" font-size="12" text-anchor="middle">✗ no context, fragile</text>
+
+    <!-- VS -->
+    <text x="192" y="106" fill="#2a3050" font-size="18" text-anchor="middle">vs</text>
+
+    <!-- RIGHT: soft lookup -->
+    <text x="215" y="18" fill="#34d399" font-size="13" font-weight="700">Attention (soft lookup — learned)</text>
+    <rect x="215" y="24" width="530" height="36" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="480" y="46" fill="#6ee7b7" font-size="13" text-anchor="middle">Query vector Q = token × W_Q  (learned projection)</text>
+    <!-- fan lines to keys -->
+    <line x1="340" y1="60" x2="296" y2="80" stroke="#34d399" stroke-width="1.2" opacity=".5"/>
+    <line x1="480" y1="60" x2="480" y2="80" stroke="#34d399" stroke-width="1.4" opacity=".7"/>
+    <line x1="620" y1="60" x2="664" y2="80" stroke="#34d399" stroke-width="1.2" opacity=".5"/>
+    <!-- key scores -->
+    <rect x="215" y="80" width="140" height="36" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="285" y="102" fill="#93c5fd" font-size="12" text-anchor="middle">K₁ · Q = 0.95</text>
+    <rect x="410" y="80" width="140" height="36" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="480" y="102" fill="#93c5fd" font-size="12" text-anchor="middle">K₂ · Q = 1.49</text>
+    <rect x="605" y="80" width="140" height="36" rx="6" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="675" y="102" fill="#93c5fd" font-size="12" text-anchor="middle">K₃ · Q = 1.47</text>
+    <!-- merge to softmax -->
+    <line x1="285" y1="116" x2="480" y2="136" stroke="#34d399" stroke-width="1.2" opacity=".5"/>
+    <line x1="480" y1="116" x2="480" y2="136" stroke="#34d399" stroke-width="1.4" opacity=".7"/>
+    <line x1="675" y1="116" x2="480" y2="136" stroke="#34d399" stroke-width="1.2" opacity=".5"/>
+    <rect x="330" y="136" width="300" height="36" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="480" y="158" fill="#6ee7b7" font-size="13" text-anchor="middle">softmax → weights [0.14,  0.24,  0.23, …]</text>
+    <line x1="480" y1="172" x2="480" y2="188" stroke="#34d399" stroke-width="2" marker-end="url(#a3)"/>
+    <text x="480" y="200" fill="#34d399" font-size="12" text-anchor="middle">context = weighted blend of all Values</text>
+  </svg>
+  <p>Q, K, V are three different <strong>learned projections</strong> of the same input. Scoring Q against all K's simultaneously means every token can consider every other token in one step — impossible with RNNs, which process sequentially and lose context from many tokens ago.</p>
+</div>
+
+<!-- HEATMAP -->
+<div class="card bc" style="margin-top:1.4rem;">
+  <h3>Attention Heatmap — Real Softmax Weights for "Your journey starts with one step"</h3>
+  <p>Each cell = the weight the <strong>row token</strong> pays to the <strong>column token</strong>. Every row sums to 1.0. Red = most attended, blue = least. These are real values from the notebook.</p>
+  <div style="overflow-x:auto;">
+  <table id="hm-table" style="border-collapse:collapse;margin:0 auto;font-size:1rem;">
+    <tr>
+      <th style="background:var(--s2);color:var(--muted);padding:8px 12px;font-size:.82rem;"></th>
+      <th style="background:var(--s2);color:var(--muted);padding:10px 16px;font-size:.85rem;">Your</th>
+      <th style="background:var(--s2);color:var(--muted);padding:10px 16px;font-size:.85rem;">journey</th>
+      <th style="background:var(--s2);color:var(--muted);padding:10px 16px;font-size:.85rem;">starts</th>
+      <th style="background:var(--s2);color:var(--muted);padding:10px 16px;font-size:.85rem;">with</th>
+      <th style="background:var(--s2);color:var(--muted);padding:10px 16px;font-size:.85rem;">one</th>
+      <th style="background:var(--s2);color:var(--muted);padding:10px 16px;font-size:.85rem;">step</th>
+    </tr>
+    <tr>
+      <th style="background:var(--s2);color:var(--muted);padding:8px 14px;font-size:.85rem;text-align:right;">Your</th>
+      <td style="background:rgb(94,123,182);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.14</td>
+      <td style="background:rgb(245,101,101);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.24</td>
+      <td style="background:rgb(230,103,110);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.23</td>
+      <td style="background:rgb(79,126,190);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.13</td>
+      <td style="background:rgb(49,130,206);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.11</td>
+      <td style="background:rgb(124,119,166);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.16</td>
+    </tr>
+    <tr>
+      <th style="background:var(--s2);color:var(--muted);padding:8px 14px;font-size:.85rem;text-align:right;">journey</th>
+      <td style="background:rgb(94,123,182);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.14</td>
+      <td style="background:rgb(245,101,101);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.24</td>
+      <td style="background:rgb(230,103,110);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.23</td>
+      <td style="background:rgb(79,126,190);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.13</td>
+      <td style="background:rgb(49,130,206);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.11</td>
+      <td style="background:rgb(124,119,166);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.16</td>
+    </tr>
+    <tr>
+      <th style="background:var(--s2);color:var(--muted);padding:8px 14px;font-size:.85rem;text-align:right;">starts</th>
+      <td style="background:rgb(94,123,182);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.14</td>
+      <td style="background:rgb(245,101,101);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.24</td>
+      <td style="background:rgb(230,103,110);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.23</td>
+      <td style="background:rgb(79,126,190);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.13</td>
+      <td style="background:rgb(49,130,206);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.11</td>
+      <td style="background:rgb(124,119,166);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.16</td>
+    </tr>
+    <tr>
+      <th style="background:var(--s2);color:var(--muted);padding:8px 14px;font-size:.85rem;text-align:right;">with</th>
+      <td style="background:rgb(110,121,173);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.15</td>
+      <td style="background:rgb(230,103,110);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.23</td>
+      <td style="background:rgb(216,105,117);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.22</td>
+      <td style="background:rgb(94,123,182);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.14</td>
+      <td style="background:rgb(64,128,198);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.12</td>
+      <td style="background:rgb(94,123,182);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.14</td>
+    </tr>
+    <tr>
+      <th style="background:var(--s2);color:var(--muted);padding:8px 14px;font-size:.85rem;text-align:right;">one</th>
+      <td style="background:rgb(110,121,173);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.15</td>
+      <td style="background:rgb(216,105,117);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.22</td>
+      <td style="background:rgb(200,107,125);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.21</td>
+      <td style="background:rgb(94,123,182);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.14</td>
+      <td style="background:rgb(79,126,190);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.13</td>
+      <td style="background:rgb(94,123,182);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.14</td>
+    </tr>
+    <tr>
+      <th style="background:var(--s2);color:var(--muted);padding:8px 14px;font-size:.85rem;text-align:right;">step</th>
+      <td style="background:rgb(94,123,182);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.14</td>
+      <td style="background:rgb(230,103,110);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.23</td>
+      <td style="background:rgb(216,105,117);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.22</td>
+      <td style="background:rgb(79,126,190);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.13</td>
+      <td style="background:rgb(64,128,198);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.12</td>
+      <td style="background:rgb(110,121,173);color:#fff;font-size:.95rem;font-weight:700;text-align:center;padding:12px 18px;border:3px solid #0d0f1a;">0.15</td>
+    </tr>
+  </table>
+  </div>
+  <div style="display:flex;align-items:center;gap:.7rem;margin-top:.5rem;">
+    <div style="width:16px;height:16px;background:rgb(49,130,206);border-radius:3px;flex-shrink:0;"></div>
+    <div style="flex:1;height:12px;background:linear-gradient(90deg,rgb(49,130,206),rgb(245,101,101));border-radius:4px;"></div>
+    <div style="width:16px;height:16px;background:rgb(245,101,101);border-radius:3px;flex-shrink:0;"></div>
+    <span style="font-size:.88rem;color:var(--muted);">low 0.11 → high 0.24</span>
+  </div>
+  <p>"Journey" and "starts" are the most attended-to tokens in almost every row — the model has learned they carry the highest semantic weight in this phrase, without ever being told what semantic weight means.</p>
+</div>
+
+<div class="g2" style="margin-top:1.4rem;">
+
+<!-- CAUSAL MASK -->
+<div class="card bc">
+  <h3>Causal Mask — The Triangle That Prevents Cheating</h3>
+  <svg viewBox="0 0 500 260" height="260">
+    <defs><marker id="a4" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7Z" fill="#34d399"/></marker></defs>
+    <!-- headers -->
+    <text x="164" y="22" fill="#64748b" font-size="13" text-anchor="middle">t=0</text>
+    <text x="224" y="22" fill="#64748b" font-size="13" text-anchor="middle">t=1</text>
+    <text x="284" y="22" fill="#64748b" font-size="13" text-anchor="middle">t=2</text>
+    <text x="344" y="22" fill="#64748b" font-size="13" text-anchor="middle">t=3</text>
+    <text x="130" y="62"  fill="#64748b" font-size="13" text-anchor="end">t=0</text>
+    <text x="130" y="122" fill="#64748b" font-size="13" text-anchor="end">t=1</text>
+    <text x="130" y="182" fill="#64748b" font-size="13" text-anchor="end">t=2</text>
+    <text x="130" y="242" fill="#64748b" font-size="13" text-anchor="end">t=3</text>
+    <!-- row 0 -->
+    <rect x="136" y="30" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="163" y="56" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">1.00</text>
+    <rect x="196" y="30" width="54" height="44" rx="5" fill="#161d30"/>
+    <text x="223" y="56" fill="#1e2a40" font-size="14" text-anchor="middle">−∞</text>
+    <rect x="256" y="30" width="54" height="44" rx="5" fill="#161d30"/>
+    <text x="283" y="56" fill="#1e2a40" font-size="14" text-anchor="middle">−∞</text>
+    <rect x="316" y="30" width="54" height="44" rx="5" fill="#161d30"/>
+    <text x="343" y="56" fill="#1e2a40" font-size="14" text-anchor="middle">−∞</text>
+    <!-- row 1 -->
+    <rect x="136" y="90" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="163" y="116" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.57</text>
+    <rect x="196" y="90" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="223" y="116" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.43</text>
+    <rect x="256" y="90" width="54" height="44" rx="5" fill="#161d30"/>
+    <text x="283" y="116" fill="#1e2a40" font-size="14" text-anchor="middle">−∞</text>
+    <rect x="316" y="90" width="54" height="44" rx="5" fill="#161d30"/>
+    <text x="343" y="116" fill="#1e2a40" font-size="14" text-anchor="middle">−∞</text>
+    <!-- row 2 -->
+    <rect x="136" y="150" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="163" y="176" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.38</text>
+    <rect x="196" y="150" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="223" y="176" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.23</text>
+    <rect x="256" y="150" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="283" y="176" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.38</text>
+    <rect x="316" y="150" width="54" height="44" rx="5" fill="#161d30"/>
+    <text x="343" y="176" fill="#1e2a40" font-size="14" text-anchor="middle">−∞</text>
+    <!-- row 3 -->
+    <rect x="136" y="210" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="163" y="236" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.37</text>
+    <rect x="196" y="210" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="223" y="236" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.21</text>
+    <rect x="256" y="210" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="283" y="236" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.18</text>
+    <rect x="316" y="210" width="54" height="44" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="343" y="236" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">0.24</text>
+    <!-- diagonal -->
+    <line x1="136" y1="30" x2="370" y2="254" stroke="#f87171" stroke-width="1.5" stroke-dasharray="6,4" opacity=".35"/>
+    <!-- annotation -->
+    <text x="388" y="50"  fill="#64748b" font-size="12">−∞ before softmax</text>
+    <text x="388" y="66"  fill="#64748b" font-size="12">→ becomes 0</text>
+    <text x="388" y="82"  fill="#64748b" font-size="12">after softmax</text>
+    <line x1="395" y1="90" x2="395" y2="170" stroke="#34d399" stroke-width="1.5" marker-end="url(#a4)"/>
+    <text x="388" y="185" fill="#34d399" font-size="12">blue triangle =</text>
+    <text x="388" y="201" fill="#34d399" font-size="12">what each token</text>
+    <text x="388" y="217" fill="#34d399" font-size="12">is allowed to see</text>
+  </svg>
+  <p>The upper-right triangle is set to −∞ <strong>before softmax</strong>. Softmax(−∞) = 0, so those positions contribute nothing. This one mask enforces causality: token at t=1 can see t=0 and t=1, never t=2 or t=3. Training and generation use the exact same forward pass.</p>
+</div>
+
+<!-- MULTI-HEAD -->
+<div class="card bc">
+  <h3>Multi-Head Attention — 12 Parallel Perspectives</h3>
+  <svg viewBox="0 0 500 260" height="260">
+    <defs><marker id="a5" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7Z" fill="#34d399"/></marker></defs>
+    <!-- input -->
+    <rect x="150" y="8" width="200" height="40" rx="7" fill="#1a1f38" stroke="#252d52" stroke-width="1.5"/>
+    <text x="250" y="32" fill="#94a3b8" font-size="14" text-anchor="middle">Input token: 768 dims</text>
+    <!-- fan lines -->
+    <line x1="250" y1="48" x2="70"  y2="88" stroke="#34d399" stroke-width="1.5" opacity=".5"/>
+    <line x1="250" y1="48" x2="250" y2="88" stroke="#34d399" stroke-width="1.5" opacity=".6"/>
+    <line x1="250" y1="48" x2="430" y2="88" stroke="#34d399" stroke-width="1.5" opacity=".5"/>
+    <!-- heads -->
+    <rect x="10"  y="88" width="120" height="60" rx="7" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="70"  y="116" fill="#6ee7b7" font-size="14" text-anchor="middle" font-weight="700">Head 1</text>
+    <text x="70"  y="135" fill="#065f46" font-size="11" text-anchor="middle">Q · K · V (64 dims)</text>
+    <rect x="190" y="88" width="120" height="60" rx="7" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1.5"/>
+    <text x="250" y="116" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">Head 2</text>
+    <text x="250" y="135" fill="#1e40af" font-size="11" text-anchor="middle">Q · K · V (64 dims)</text>
+    <rect x="370" y="88" width="120" height="60" rx="7" fill="#2d1a2e" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="430" y="116" fill="#c084fc" font-size="14" text-anchor="middle" font-weight="700">… Head 12</text>
+    <text x="430" y="135" fill="#581c87" font-size="11" text-anchor="middle">Q · K · V (64 dims)</text>
+    <!-- concat lines -->
+    <line x1="70"  y1="148" x2="250" y2="188" stroke="#34d399" stroke-width="1.5" opacity=".5"/>
+    <line x1="250" y1="148" x2="250" y2="188" stroke="#34d399" stroke-width="1.5" opacity=".6"/>
+    <line x1="430" y1="148" x2="250" y2="188" stroke="#34d399" stroke-width="1.5" opacity=".5"/>
+    <!-- concat -->
+    <rect x="100" y="188" width="300" height="40" rx="7" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="250" y="212" fill="#6ee7b7" font-size="13" text-anchor="middle">Concat: 12 × 64 = 768 dims</text>
+    <!-- projection -->
+    <line x1="250" y1="228" x2="250" y2="248" stroke="#34d399" stroke-width="2" marker-end="url(#a5)"/>
+    <text x="250" y="260" fill="#34d399" font-size="13" text-anchor="middle">× W_out (768×768)  →  output: 768 dims</text>
+    <!-- param note -->
+    <text x="10" y="168" fill="#64748b" font-size="11">12 × 64 = 768</text>
+    <text x="10" y="182" fill="#64748b" font-size="11">shape unchanged</text>
+  </svg>
+  <p>Each of 12 heads runs independent attention on a 64-dim slice. Because 12 × 64 = 768, the output shape is identical to the input. Each head can specialize in different relationships (syntax, coreference, position) without being instructed to — this emerges from training alone.</p>
+  <div class="insight i-cyan"><strong>Why multiple heads beat one wide head:</strong> One 768-dim head produces a single weighted blend of all tokens. Twelve 64-dim heads produce twelve independent blends that are then combined — giving the model multiple simultaneous views of the same sequence.</div>
+</div>
+
+</div><!-- /g2 -->
+
+
+<!-- ════════════════════════════════════════════
+     03 · GPT MODEL
+════════════════════════════════════════════ -->
+<div class="phase ph-3" id="nb3">03 · GPT Model — Assembling 124 Million Parameters</div>
+
+<div class="g2">
+
+<!-- ARCHITECTURE STACK -->
+<div class="card ba">
+  <h3>Architecture — Shape Journey: (B, T) → (B, T, 50,257)</h3>
+  <svg viewBox="0 0 500 340" height="340">
+    <defs><marker id="a6" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7Z" fill="#64748b"/></marker></defs>
+    <!-- Token emb -->
+    <rect x="60" y="4" width="360" height="44" rx="7" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="240" y="22" fill="#93c5fd" font-size="14" text-anchor="middle" font-weight="700">Token Embedding Lookup</text>
+    <text x="240" y="38" fill="#4b72b0" font-size="12" text-anchor="middle">(B, T) integers  →  (B, T, 768)</text>
+    <line x1="240" y1="48" x2="240" y2="62" stroke="#64748b" stroke-width="2" marker-end="url(#a6)"/>
+    <!-- pos emb -->
+    <rect x="60" y="62" width="360" height="44" rx="7" fill="#0e7490" stroke="#06b6d4" stroke-width="2"/>
+    <text x="240" y="80" fill="#67e8f9" font-size="14" text-anchor="middle" font-weight="700">+ Positional Embedding</text>
+    <text x="240" y="96" fill="#164e63" font-size="12" text-anchor="middle">(T, 768) added elementwise  →  (B, T, 768)</text>
+    <line x1="240" y1="106" x2="240" y2="120" stroke="#64748b" stroke-width="2" marker-end="url(#a6)"/>
+    <!-- block 1 -->
+    <rect x="60" y="120" width="360" height="38" rx="7" fill="#292116" stroke="#d97706" stroke-width="2"/>
+    <text x="240" y="143" fill="#fcd34d" font-size="13" text-anchor="middle">Transformer Block 1  →  (B, T, 768)</text>
+    <line x1="240" y1="158" x2="240" y2="170" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <!-- block 2 -->
+    <rect x="60" y="170" width="360" height="38" rx="7" fill="#292116" stroke="#d97706" stroke-width="2" opacity=".85"/>
+    <text x="240" y="193" fill="#fcd34d" font-size="13" text-anchor="middle">Transformer Block 2  →  (B, T, 768)</text>
+    <line x1="240" y1="208" x2="240" y2="224" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <!-- ellipsis -->
+    <text x="240" y="238" fill="#475569" font-size="18" text-anchor="middle">· · · · · · · · · ·</text>
+    <line x1="240" y1="244" x2="240" y2="258" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <!-- block 12 -->
+    <rect x="60" y="258" width="360" height="38" rx="7" fill="#292116" stroke="#d97706" stroke-width="2" opacity=".65"/>
+    <text x="240" y="281" fill="#fcd34d" font-size="13" text-anchor="middle">Transformer Block 12  →  (B, T, 768)</text>
+    <line x1="240" y1="296" x2="240" y2="310" stroke="#64748b" stroke-width="2" marker-end="url(#a6)"/>
+    <!-- output -->
+    <rect x="60" y="310" width="360" height="26" rx="7" fill="#064e3b" stroke="#10b981" stroke-width="2"/>
+    <text x="240" y="328" fill="#6ee7b7" font-size="13" text-anchor="middle">Linear head:  (B, T, 768)  →  (B, T, 50,257)</text>
+    <!-- right annotation -->
+    <text x="438" y="30"  fill="#64748b" font-size="11">768</text>
+    <text x="438" y="88"  fill="#64748b" font-size="11">768</text>
+    <text x="438" y="145" fill="#64748b" font-size="11">768</text>
+    <text x="438" y="193" fill="#64748b" font-size="11">768</text>
+    <text x="438" y="281" fill="#64748b" font-size="11">768</text>
+    <text x="438" y="325" fill="#34d399" font-size="11">50,257</text>
+    <line x1="436" y1="36" x2="436" y2="300" stroke="#292116" stroke-width="2"/>
+    <text x="436" y="168" fill="#fbbf24" font-size="11" text-anchor="middle" transform="rotate(90,436,168)">768 constant through all blocks</text>
+  </svg>
+  <p>The 768-dimensional channel is the model's working memory width. Its shape never changes through 12 blocks. What changes is the <em>information</em> encoded in those 768 numbers — early blocks handle syntax and token patterns, later blocks handle abstract meaning and long-range context.</p>
+</div>
+
+<!-- INSIDE BLOCK -->
+<div class="card ba">
+  <h3>Inside One Transformer Block — Two Sub-Layers + Two Skip Connections</h3>
+  <svg viewBox="0 0 500 340" height="340">
+    <defs><marker id="a7" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7Z" fill="#64748b"/></marker></defs>
+    <!-- input -->
+    <rect x="150" y="8" width="200" height="36" rx="6" fill="#1a1f38" stroke="#252d52" stroke-width="1.5"/>
+    <text x="250" y="30" fill="#94a3b8" font-size="14" text-anchor="middle">x  (B, T, 768)</text>
+    <!-- skip 1 branch left -->
+    <line x1="150" y1="26" x2="60"  y2="26" stroke="#34d399" stroke-width="2"/>
+    <line x1="60"  y1="26" x2="60"  y2="186" stroke="#34d399" stroke-width="2"/>
+    <text x="30" y="112" fill="#34d399" font-size="12" transform="rotate(-90,30,112)">skip connection 1</text>
+    <!-- arrow down -->
+    <line x1="250" y1="44" x2="250" y2="58" stroke="#64748b" stroke-width="2" marker-end="url(#a7)"/>
+    <!-- LN 1 -->
+    <rect x="150" y="58" width="200" height="36" rx="6" fill="#2d1a2e" stroke="#a855f7" stroke-width="2"/>
+    <text x="250" y="80" fill="#c084fc" font-size="14" text-anchor="middle" font-weight="700">LayerNorm</text>
+    <line x1="250" y1="94" x2="250" y2="108" stroke="#64748b" stroke-width="2" marker-end="url(#a7)"/>
+    <!-- MHA -->
+    <rect x="120" y="108" width="260" height="52" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="2"/>
+    <text x="250" y="132" fill="#6ee7b7" font-size="15" text-anchor="middle" font-weight="700">Multi-Head Attention</text>
+    <text x="250" y="150" fill="#065f46" font-size="12" text-anchor="middle">12 heads × 64 dims</text>
+    <line x1="250" y1="160" x2="250" y2="174" stroke="#64748b" stroke-width="2" marker-end="url(#a7)"/>
+    <!-- skip add 1 -->
+    <line x1="60" y1="186" x2="170" y2="186" stroke="#34d399" stroke-width="2" marker-end="url(#a7)"/>
+    <circle cx="250" cy="186" r="18" fill="#1a1f38" stroke="#34d399" stroke-width="2"/>
+    <text x="250" y="192" fill="#34d399" font-size="18" text-anchor="middle" font-weight="700">+</text>
+    <!-- x1 arrow -->
+    <line x1="250" y1="204" x2="250" y2="218" stroke="#64748b" stroke-width="2" marker-end="url(#a7)"/>
+    <!-- skip 2 branch right -->
+    <line x1="350" y1="211" x2="450" y2="211" stroke="#34d399" stroke-width="2"/>
+    <line x1="450" y1="211" x2="450" y2="328" stroke="#34d399" stroke-width="2"/>
+    <text x="472" y="270" fill="#34d399" font-size="12" transform="rotate(90,472,270)">skip connection 2</text>
+    <!-- LN 2 -->
+    <rect x="150" y="218" width="200" height="36" rx="6" fill="#2d1a2e" stroke="#a855f7" stroke-width="2"/>
+    <text x="250" y="240" fill="#c084fc" font-size="14" text-anchor="middle" font-weight="700">LayerNorm</text>
+    <line x1="250" y1="254" x2="250" y2="268" stroke="#64748b" stroke-width="2" marker-end="url(#a7)"/>
+    <!-- FFN -->
+    <rect x="120" y="268" width="260" height="52" rx="6" fill="#292116" stroke="#d97706" stroke-width="2"/>
+    <text x="250" y="292" fill="#fcd34d" font-size="15" text-anchor="middle" font-weight="700">FeedForward</text>
+    <text x="250" y="310" fill="#92400e" font-size="12" text-anchor="middle">768 → 3,072 → 768</text>
+    <line x1="250" y1="320" x2="250" y2="328" stroke="#64748b" stroke-width="2" marker-end="url(#a7)"/>
+    <!-- skip add 2 -->
+    <line x1="450" y1="328" x2="340" y2="328" stroke="#34d399" stroke-width="2" marker-end="url(#a7)"/>
+    <circle cx="250" cy="328" r="18" fill="#1a1f38" stroke="#34d399" stroke-width="2"/>
+    <text x="250" y="334" fill="#34d399" font-size="18" text-anchor="middle" font-weight="700">+</text>
+  </svg>
+  <p>Skip connections (green + circles) add the sub-layer <em>input</em> directly to the sub-layer output. Gradients can flow backward through the addition, bypassing the sub-layers entirely. This is what makes 12-layer networks trainable — without skip connections, gradients vanish before reaching early layers.</p>
+  <div class="insight i-amber"><strong>Pre-norm (LayerNorm before each sub-layer):</strong> Each sub-layer always receives well-scaled inputs. Without it, activations drift after several layers and training becomes unstable.</div>
+</div>
+
+</div><!-- /g2 -->
+
+<!-- FFN + PARAMS -->
+<div class="card ba" style="margin-top:1.4rem;">
+  <h3>FeedForward Network + Where the 124M Parameters Live</h3>
+  <div class="g2" style="align-items:start;">
+    <!-- FFN diagram -->
+    <div>
+      <svg viewBox="0 0 420 140" height="140">
+        <defs><marker id="a8" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7Z" fill="#64748b"/></marker></defs>
+        <rect x="0"   y="30" width="60"  height="80" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+        <text x="30"  y="74" fill="#93c5fd" font-size="13" text-anchor="middle" transform="rotate(-90,30,74)">768 in</text>
+        <text x="72" y="60" fill="#64748b" font-size="11" text-anchor="middle">Linear</text>
+        <text x="72" y="74" fill="#fbbf24" font-size="12" text-anchor="middle" font-weight="700">W₁</text>
+        <line x1="60" y1="70" x2="84" y2="70" stroke="#64748b" stroke-width="2" marker-end="url(#a8)"/>
+        <rect x="84"  y="4"  width="100" height="132" rx="5" fill="#292116" stroke="#d97706" stroke-width="2"/>
+        <text x="134" y="74" fill="#fcd34d" font-size="14" text-anchor="middle" transform="rotate(-90,134,74)">3,072 hidden (4×)</text>
+        <text x="134" y="130" fill="#92400e" font-size="12" text-anchor="middle">GELU</text>
+        <text x="198" y="60" fill="#64748b" font-size="11" text-anchor="middle">Linear</text>
+        <text x="198" y="74" fill="#fbbf24" font-size="12" text-anchor="middle" font-weight="700">W₂</text>
+        <line x1="184" y1="70" x2="208" y2="70" stroke="#64748b" stroke-width="2" marker-end="url(#a8)"/>
+        <rect x="208" y="30" width="60"  height="80" rx="5" fill="#064e3b" stroke="#10b981" stroke-width="2"/>
+        <text x="238" y="74" fill="#6ee7b7" font-size="13" text-anchor="middle" transform="rotate(-90,238,74)">768 out</text>
+        <!-- GELU vs ReLU -->
+        <text x="290" y="18" fill="#64748b" font-size="11">GELU vs ReLU</text>
+        <polyline points="285,110 296,109 305,107 312,103 317,96 320,89 323,80 326,69 330,57 336,44 344,34 354,26 366,21 380,18 396,17 412,16"
+          fill="none" stroke="#34d399" stroke-width="2"/>
+        <polyline points="285,110 320,110 380,20 412,20"
+          fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="285" y1="110" x2="412" y2="110" stroke="#252d52" stroke-width="1"/>
+        <line x1="348" y1="18"  x2="348" y2="112" stroke="#252d52" stroke-width="1"/>
+        <text x="404" y="14"  fill="#34d399" font-size="10">GELU</text>
+        <text x="404" y="24"  fill="#f87171" font-size="10">ReLU</text>
+        <text x="285" y="126" fill="#64748b" font-size="9">x=−4</text>
+        <text x="404" y="126" fill="#64748b" font-size="9">x=+4</text>
+      </svg>
+      <p style="font-size:.88rem;color:var(--muted);margin-top:.5rem;">The 4× expansion (768→3,072) gives each token headroom to store complex associations. GELU allows small negative values near zero — ReLU zeroes all negatives, killing neurons permanently during training ("dead neurons").</p>
+    </div>
+    <!-- param breakdown -->
+    <div style="display:flex;flex-direction:column;gap:.9rem;">
+      <div>
+        <p style="font-size:.9rem;font-weight:700;margin-bottom:.7rem;color:var(--text);">Where 124M parameters live:</p>
+        <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem;">
+          <div style="font-size:.88rem;width:200px;color:var(--text);">FeedForward ×12 blocks</div>
+          <div style="flex:1;background:var(--s2);border-radius:5px;height:22px;position:relative;">
+            <div style="width:46%;height:22px;background:#d97706;border-radius:5px;display:flex;align-items:center;padding-left:.5rem;">
+              <span style="font-size:.78rem;font-weight:700;color:#fff;white-space:nowrap;">56.6M — 45%</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem;">
+          <div style="font-size:.88rem;width:200px;color:var(--text);">Token Embedding (tied)</div>
+          <div style="flex:1;background:var(--s2);border-radius:5px;height:22px;">
+            <div style="width:31%;height:22px;background:#0e7490;border-radius:5px;display:flex;align-items:center;padding-left:.5rem;">
+              <span style="font-size:.78rem;font-weight:700;color:#fff;white-space:nowrap;">38.6M — 31%</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.7rem;margin-bottom:.5rem;">
+          <div style="font-size:.88rem;width:200px;color:var(--text);">Attention ×12 blocks</div>
+          <div style="flex:1;background:var(--s2);border-radius:5px;height:22px;">
+            <div style="width:23%;height:22px;background:#4f46e5;border-radius:5px;display:flex;align-items:center;padding-left:.5rem;">
+              <span style="font-size:.78rem;font-weight:700;color:#fff;white-space:nowrap;">28.3M — 23%</span>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.7rem;">
+          <div style="font-size:.88rem;width:200px;color:var(--muted);">Positional Embedding</div>
+          <div style="flex:1;background:var(--s2);border-radius:5px;height:22px;">
+            <div style="width:1%;height:22px;background:#374151;border-radius:5px;min-width:55px;display:flex;align-items:center;padding-left:.4rem;">
+              <span style="font-size:.72rem;font-weight:700;color:#fff;white-space:nowrap;">0.8M</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="insight i-amber" style="font-size:.88rem;"><strong>Weight tying:</strong> The token embedding matrix (50,257 × 768 = 38.6M params) is shared with the output head. Removing this tie would add 38.6M parameters and reduce generation quality — the model benefits from the constraint that input and output spaces are aligned.</div>
+      <div style="background:var(--s2);border-radius:10px;padding:.9rem 1rem;">
+        <p style="font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:.6rem;">GPT-2 family — same code, different config:</p>
+        <table style="border-collapse:collapse;width:100%;font-size:.85rem;">
+          <tr style="color:var(--muted);font-size:.78rem;">
+            <th style="padding:.4rem .5rem;text-align:left;">Variant</th>
+            <th style="padding:.4rem .5rem;">Layers</th><th style="padding:.4rem .5rem;">Heads</th>
+            <th style="padding:.4rem .5rem;">d_model</th><th style="padding:.4rem .5rem;">Params</th>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:.4rem .5rem;color:var(--amber);font-weight:700;">Small ← this NB</td>
+            <td style="padding:.4rem .5rem;text-align:center;">12</td><td style="padding:.4rem .5rem;text-align:center;">12</td>
+            <td style="padding:.4rem .5rem;text-align:center;">768</td><td style="padding:.4rem .5rem;text-align:center;">124M</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:.4rem .5rem;color:var(--muted);">Medium</td>
+            <td style="padding:.4rem .5rem;text-align:center;">24</td><td style="padding:.4rem .5rem;text-align:center;">16</td>
+            <td style="padding:.4rem .5rem;text-align:center;">1024</td><td style="padding:.4rem .5rem;text-align:center;">355M</td>
+          </tr>
+          <tr style="border-top:1px solid var(--border);">
+            <td style="padding:.4rem .5rem;color:var(--muted);">XL</td>
+            <td style="padding:.4rem .5rem;text-align:center;">48</td><td style="padding:.4rem .5rem;text-align:center;">25</td>
+            <td style="padding:.4rem .5rem;text-align:center;">1600</td><td style="padding:.4rem .5rem;text-align:center;">1.5B</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     04 · TRAINING
+════════════════════════════════════════════ -->
+<div class="phase ph-4" id="nb4">04 · Training — From Random Weights to Learned Language</div>
+
+<div class="g2">
+
+<!-- TRAINING LOOP -->
+<div class="card br">
+  <h3>The 4-Step Training Loop — Repeated Millions of Times</h3>
+  <svg viewBox="0 0 500 280" height="280">
+    <defs><marker id="a9" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7Z" fill="#94a3b8"/></marker></defs>
+    <!-- step 1 top-center -->
+    <rect x="150" y="8" width="200" height="60" rx="8" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="250" y="34" fill="#93c5fd" font-size="16" text-anchor="middle" font-weight="800">① Forward Pass</text>
+    <text x="250" y="56" fill="#4b72b0" font-size="12" text-anchor="middle">logits = model(token_ids)</text>
+    <!-- step 1 → step 2 -->
+    <line x1="350" y1="38" x2="390" y2="78" stroke="#94a3b8" stroke-width="2" marker-end="url(#a9)"/>
+    <!-- step 2 top-right -->
+    <rect x="358" y="78" width="140" height="60" rx="8" fill="#292116" stroke="#d97706" stroke-width="2"/>
+    <text x="428" y="104" fill="#fcd34d" font-size="16" text-anchor="middle" font-weight="800">② Loss</text>
+    <text x="428" y="124" fill="#92400e" font-size="11" text-anchor="middle">cross_entropy(logits, y)</text>
+    <!-- step 2 → step 3 -->
+    <line x1="428" y1="138" x2="428" y2="178" stroke="#94a3b8" stroke-width="2" marker-end="url(#a9)"/>
+    <!-- step 3 bottom-right -->
+    <rect x="358" y="178" width="140" height="60" rx="8" fill="#7f1d1d" stroke="#dc2626" stroke-width="2"/>
+    <text x="428" y="204" fill="#fca5a5" font-size="16" text-anchor="middle" font-weight="800">③ Backward</text>
+    <text x="428" y="224" fill="#7f1d1d" font-size="11" text-anchor="middle">loss.backward() → grads</text>
+    <!-- step 3 → step 4 -->
+    <line x1="358" y1="208" x2="260" y2="208" stroke="#94a3b8" stroke-width="2" marker-end="url(#a9)"/>
+    <!-- step 4 bottom-left -->
+    <rect x="4" y="178" width="252" height="60" rx="8" fill="#064e3b" stroke="#10b981" stroke-width="2"/>
+    <text x="130" y="204" fill="#6ee7b7" font-size="16" text-anchor="middle" font-weight="800">④ Optimizer Step</text>
+    <text x="130" y="224" fill="#065f46" font-size="12" text-anchor="middle">w  ←  w − lr × gradient</text>
+    <!-- step 4 → step 1 -->
+    <line x1="130" y1="178" x2="130" y2="68" stroke="#94a3b8" stroke-width="2" marker-end="url(#a9)"/>
+    <line x1="130" y1="68"  x2="150" y2="38" stroke="#94a3b8" stroke-width="2"/>
+    <!-- annotation -->
+    <text x="4"  y="38" fill="#f87171" font-size="12">loss ≈ 9.9</text>
+    <text x="4"  y="54" fill="#f87171" font-size="11">at init</text>
+    <text x="4"  y="70" fill="#34d399" font-size="11">(≈ log 50,257)</text>
+    <text x="4"  y="100" fill="#f87171" font-size="12">loss ≈ 2.1</text>
+    <text x="4"  y="116" fill="#34d399" font-size="11">after 3 epochs</text>
+    <!-- repeat label -->
+    <text x="250" y="265" fill="#475569" font-size="12" text-anchor="middle">461 batches × 3 epochs = millions of weight updates</text>
+  </svg>
+  <p>The backward pass (③) computes how every weight contributed to the error — using the chain rule across all 12 layers and 124M parameters. PyTorch's autograd handles this automatically. The optimizer step (④) then nudges each weight a tiny amount in the direction that reduces loss.</p>
+</div>
+
+<!-- LOSS CURVE + TRAINERS -->
+<div class="card br">
+  <h3>Loss Curve + Five Trainer Generations</h3>
+  <svg viewBox="0 0 500 130" height="130">
+    <line x1="0" y1="120" x2="500" y2="120" stroke="#252d52" stroke-width="1.5"/>
+    <line x1="0" y1="16"  x2="500" y2="16"  stroke="#1e2a40" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="0" y1="50"  x2="500" y2="50"  stroke="#1e2a40" stroke-width="1" stroke-dasharray="5,5"/>
+    <line x1="0" y1="84"  x2="500" y2="84"  stroke="#1e2a40" stroke-width="1" stroke-dasharray="5,5"/>
+    <text x="0" y="20"  fill="#64748b" font-size="12">9.9</text>
+    <text x="0" y="54"  fill="#64748b" font-size="12">5</text>
+    <text x="0" y="88"  fill="#64748b" font-size="12">2.5</text>
+    <!-- train loss -->
+    <polyline points="16,18 40,26 70,38 110,52 150,63 200,74 250,83 310,92 370,98 430,103 490,106"
+      fill="none" stroke="#818cf8" stroke-width="3" stroke-linejoin="round"/>
+    <!-- val loss -->
+    <polyline points="16,19 80,40 160,62 250,85 370,100 490,109"
+      fill="none" stroke="#34d399" stroke-width="2.5" stroke-dasharray="7,4" stroke-linejoin="round"/>
+    <circle cx="16"  cy="18"  r="5" fill="#f87171"/>
+    <circle cx="490" cy="106" r="5" fill="#818cf8"/>
+    <text x="455" y="103" fill="#818cf8" font-size="12">train≈2.1</text>
+    <text x="455" y="116" fill="#34d399" font-size="12">val≈2.3</text>
+    <text x="20"  y="14"  fill="#f87171" font-size="11">loss≈9.9 start</text>
+    <!-- gap annotation -->
+    <line x1="380" y1="99" x2="380" y2="107" stroke="#f87171" stroke-width="1.5"/>
+    <text x="384" y="98" fill="#f87171" font-size="10">gap = overfitting signal</text>
+  </svg>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:.3rem;">
+    <div style="background:var(--s2);border-radius:10px;padding:.85rem 1rem;">
+      <div style="font-size:.88rem;font-weight:700;color:var(--muted);margin-bottom:.3rem;">V0 — Sanity check</div>
+      <div style="font-size:.85rem;color:#64748b;">Overfit one batch to loss &lt; 0.01. Proves the loop works before using real data. If this fails, something is broken.</div>
+    </div>
+    <div style="background:var(--s2);border-radius:10px;padding:.85rem 1rem;">
+      <div style="font-size:.88rem;font-weight:700;color:#34d399;margin-bottom:.3rem;">V2 — ~4× faster</div>
+      <div style="font-size:.85rem;color:#64748b;">FP16 halves memory bandwidth. Flash Attention never materialises T×T matrix. torch.compile fuses GPU kernels.</div>
+    </div>
+    <div style="background:var(--s2);border-radius:10px;padding:.85rem 1rem;">
+      <div style="font-size:.88rem;font-weight:700;color:#fbbf24;margin-bottom:.3rem;">V3 — Stability</div>
+      <div style="font-size:.85rem;color:#64748b;">Gradient clip (‖g‖ ≤ 1.0) stops spikes. Cosine LR: warm-up then smooth decay. Grad accumulation simulates large batch.</div>
+    </div>
+    <div style="background:var(--s2);border-radius:10px;padding:.85rem 1rem;">
+      <div style="font-size:.88rem;font-weight:700;color:#c084fc;margin-bottom:.3rem;">V4 — Multi-GPU (DDP)</div>
+      <div style="font-size:.85rem;color:#64748b;">Full model on each GPU, unique data per GPU. AllReduce averages gradients after each step. Near-linear speedup. Launch: torchrun.</div>
+    </div>
+  </div>
+  <div class="insight i-rose"><strong>Gradient accumulation:</strong> Run 32 micro-batches of 4 samples each. Accumulate (sum) the gradients. Then do one optimizer step. Mathematically identical to a real batch of 128 — because gradients are additive. Lets a consumer GPU simulate a cluster-scale batch.</div>
+</div>
+
+</div><!-- /g2 -->
+
+
+<!-- ════════════════════════════════════════════
+     05 · INFERENCE
+════════════════════════════════════════════ -->
+<div class="phase ph-5" id="nb5">05 · Inference — Controlling What the Trained Model Says</div>
+
+<!-- TEMPERATURE -->
+<div class="card bp">
+  <h3>Temperature — The Certainty vs Creativity Dial</h3>
+  <p>Temperature divides logits before softmax: <code style="color:var(--accent);">probs = softmax(logits / T)</code>. The model weights are <strong>frozen</strong> — only how you sample from them changes.</p>
+  <div class="temp-widget">
+    <div class="temp-header">
+      <span style="font-size:.88rem;color:var(--muted);font-weight:700;flex-shrink:0;">Temperature</span>
+      <input type="range" id="temp-slider" min="0.1" max="2.5" step="0.05" value="1.0">
+      <span id="temp-val">1.00</span>
+    </div>
+    <div id="temp-desc" style="font-size:.83rem;color:var(--muted);margin-bottom:.85rem;min-height:1.3em;"></div>
+    <div id="temp-bars" style="display:flex;flex-direction:column;gap:.55rem;"></div>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:.85rem;font-style:italic;">Next-word distribution after "I have a dream" — drag to reshape probabilities in real time</p>
+  </div>
+  <div class="insight i-purple">
+    <strong>Real outputs from the notebook — same weights, same prompt "I have a dream":</strong><br/>
+    T=0 (greedy): <em style="color:#94a3b8;">"…of being a doctor. I have a dream of being a doctor. I have a dream…"</em><br/>
+    T=0.8 + top-k/p: <em style="color:#94a3b8;">"…that I will be able to live in a world where I will be able to pursue my passion…"</em>
+  </div>
+</div>
+
+<div class="g2" style="margin-top:1.4rem;">
+
+<!-- TOP-K and TOP-P -->
+<div class="card bp">
+  <h3>Top-k and Top-p — Removing Low-Quality Candidates</h3>
+  <svg viewBox="0 0 500 260" height="260">
+    <!-- TOP-K title -->
+    <text x="0" y="16" fill="#818cf8" font-size="14" font-weight="700">Top-k  (k = 3)  — always keeps exactly k tokens</text>
+    <!-- bars -->
+    <rect x="0"   y="24" width="38" height="80" rx="4" fill="#818cf8"/>
+    <text x="19"  y="62" fill="#fff" font-size="13" text-anchor="middle" font-weight="700">0.34</text>
+    <rect x="42"  y="54" width="38" height="50" rx="4" fill="#818cf8" opacity=".7"/>
+    <text x="61"  y="82" fill="#c7d2fe" font-size="12" text-anchor="middle">0.21</text>
+    <rect x="84"  y="67" width="38" height="37" rx="4" fill="#818cf8" opacity=".45"/>
+    <text x="103" y="88" fill="#c7d2fe" font-size="12" text-anchor="middle">0.12</text>
+    <!-- cutoff line -->
+    <line x1="123" y1="20" x2="123" y2="108" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="5,3"/>
+    <text x="126" y="18" fill="#fbbf24" font-size="12" font-weight="700">cutoff k=3</text>
+    <!-- discarded bars -->
+    <rect x="126" y="76" width="38" height="28" rx="4" fill="#1f2937"/>
+    <rect x="168" y="82" width="38" height="22" rx="4" fill="#1f2937"/>
+    <rect x="210" y="86" width="38" height="18" rx="4" fill="#1f2937"/>
+    <rect x="252" y="88" width="38" height="16" rx="4" fill="#1f2937"/>
+    <text x="190" y="98" fill="#374151" font-size="11" text-anchor="middle">→ set to −∞ → discarded</text>
+    <text x="0" y="122" fill="#64748b" font-size="12">Rigid: keeps same number regardless of how confident the model is.</text>
+
+    <!-- TOP-P title -->
+    <text x="0" y="150" fill="#34d399" font-size="14" font-weight="700">Top-p / Nucleus  (p = 0.90)  — adaptive</text>
+    <!-- bars -->
+    <rect x="0"   y="158" width="52" height="80" rx="4" fill="#34d399"/>
+    <text x="26"  y="194" fill="#fff" font-size="12" text-anchor="middle" font-weight="700">0.34</text>
+    <text x="26"  y="208" fill="#065f46" font-size="10" text-anchor="middle">cum: 0.34</text>
+    <rect x="56"  y="191" width="42" height="47" rx="4" fill="#34d399" opacity=".7"/>
+    <text x="77"  y="208" fill="#6ee7b7" font-size="11" text-anchor="middle">+0.21</text>
+    <text x="77"  y="220" fill="#065f46" font-size="10" text-anchor="middle">→0.55</text>
+    <rect x="102" y="205" width="36" height="33" rx="4" fill="#34d399" opacity=".55"/>
+    <text x="120" y="220" fill="#6ee7b7" font-size="11" text-anchor="middle">+0.12</text>
+    <rect x="142" y="213" width="32" height="25" rx="4" fill="#34d399" opacity=".42"/>
+    <text x="158" y="228" fill="#6ee7b7" font-size="11" text-anchor="middle">+0.10</text>
+    <rect x="178" y="218" width="28" height="20" rx="4" fill="#34d399" opacity=".32"/>
+    <text x="192" y="232" fill="#475569" font-size="11" text-anchor="middle">+0.08</text>
+    <!-- cumulative annotation -->
+    <text x="0"  y="248" fill="#64748b" font-size="11">Cumulative: 0.34→0.55→0.67→0.77→0.85… stop when ≥ 0.90</text>
+    <!-- cutoff line -->
+    <line x1="208" y1="148" x2="208" y2="240" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="5,3"/>
+    <!-- discarded -->
+    <rect x="210" y="220" width="24" height="18" rx="4" fill="#1f2937"/>
+    <rect x="238" y="222" width="20" height="16" rx="4" fill="#1f2937"/>
+    <text x="262" y="248" fill="#374151" font-size="11">discarded</text>
+    <!-- right annotation -->
+    <text x="310" y="174" fill="#64748b" font-size="12">Confident model → 2 tokens</text>
+    <text x="310" y="188" fill="#64748b" font-size="12">enough to reach p=0.90.</text>
+    <text x="310" y="206" fill="#64748b" font-size="12">Uncertain model → auto-</text>
+    <text x="310" y="220" fill="#64748b" font-size="12">widens to 8+ tokens.</text>
+    <text x="310" y="240" fill="#34d399" font-size="12" font-weight="700">Adaptive to confidence.</text>
+  </svg>
+  <p><strong>Best in practice: combine both.</strong> k=50 ensures you never sample from truly garbage tokens. p=0.9 then further narrows to the likely nucleus. T=0.8 controls the final randomness. This is the ChatGPT / Claude default.</p>
+</div>
+
+<!-- BEAM SEARCH -->
+<div class="card bp">
+  <h3>Beam Search — Track 3 Paths, Keep the Best</h3>
+  <svg viewBox="0 0 500 280" height="280">
+    <defs><marker id="a10" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7Z" fill="#252d52"/></marker></defs>
+    <!-- root -->
+    <rect x="150" y="8" width="200" height="44" rx="7" fill="#1e3a8a" stroke="#3b82f6" stroke-width="2"/>
+    <text x="250" y="28" fill="#93c5fd" font-size="13" text-anchor="middle" font-weight="700">"I have a dream"</text>
+    <text x="250" y="44" fill="#4b72b0" font-size="11" text-anchor="middle">start: 1 candidate</text>
+    <!-- fan lines -->
+    <line x1="250" y1="52" x2="70"  y2="96" stroke="#252d52" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#a10)"/>
+    <line x1="250" y1="52" x2="250" y2="96" stroke="#252d52" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#a10)"/>
+    <line x1="250" y1="52" x2="430" y2="96" stroke="#252d52" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#a10)"/>
+    <!-- step 1 beams -->
+    <rect x="10"  y="96" width="120" height="50" rx="7" fill="#292116" stroke="#d97706" stroke-width="2"/>
+    <text x="70"  y="120" fill="#fcd34d" font-size="14" text-anchor="middle" font-weight="700">"… of"</text>
+    <text x="70"  y="138" fill="#92400e" font-size="12" text-anchor="middle">log-p: −0.41</text>
+    <rect x="190" y="96" width="120" height="50" rx="7" fill="#292116" stroke="#d97706" stroke-width="2"/>
+    <text x="250" y="120" fill="#fcd34d" font-size="14" text-anchor="middle" font-weight="700">"… that"</text>
+    <text x="250" y="138" fill="#92400e" font-size="12" text-anchor="middle">log-p: −0.51</text>
+    <rect x="370" y="96" width="120" height="50" rx="7" fill="#292116" stroke="#d97706" stroke-width="2"/>
+    <text x="430" y="120" fill="#fcd34d" font-size="14" text-anchor="middle" font-weight="700">"… to"</text>
+    <text x="430" y="138" fill="#92400e" font-size="12" text-anchor="middle">log-p: −0.63</text>
+    <!-- expand label -->
+    <text x="250" y="160" fill="#64748b" font-size="12" text-anchor="middle">expand 3 → 9 candidates, keep top 3 by log-probability</text>
+    <!-- step 2 lines -->
+    <line x1="70"  y1="146" x2="70"  y2="186" stroke="#252d52" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#a10)"/>
+    <line x1="250" y1="146" x2="250" y2="186" stroke="#252d52" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#a10)"/>
+    <line x1="430" y1="146" x2="430" y2="186" stroke="#252d52" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#a10)"/>
+    <!-- step 2 beams -->
+    <rect x="10"  y="186" width="120" height="52" rx="7" fill="#064e3b" stroke="#10b981" stroke-width="2.5"/>
+    <text x="70"  y="210" fill="#6ee7b7" font-size="14" text-anchor="middle" font-weight="700">"of being"</text>
+    <text x="70"  y="230" fill="#065f46" font-size="12" text-anchor="middle">−0.72  ★ best</text>
+    <rect x="190" y="186" width="120" height="52" rx="7" fill="#292116" stroke="#d97706" stroke-width="2"/>
+    <text x="250" y="210" fill="#fcd34d" font-size="14" text-anchor="middle" font-weight="700">"that I"</text>
+    <text x="250" y="230" fill="#92400e" font-size="12" text-anchor="middle">−0.88</text>
+    <rect x="370" y="186" width="120" height="52" rx="7" fill="#292116" stroke="#d97706" stroke-width="2"/>
+    <text x="430" y="210" fill="#fcd34d" font-size="14" text-anchor="middle" font-weight="700">"to be"</text>
+    <text x="430" y="230" fill="#92400e" font-size="12" text-anchor="middle">−1.04</text>
+    <!-- insight -->
+    <text x="10"  y="258" fill="#64748b" font-size="12">Best by log-probability = "of being" — but longer sequences still loop.</text>
+    <text x="10"  y="272" fill="#f87171" font-size="12">High probability ≠ high quality. That's why production uses sampling.</text>
+  </svg>
+  <p>Greedy picks the best token at each step. Beam search tracks B=3 full candidates simultaneously and selects the best <em>complete</em> sequence. It always scores better by log-probability — yet still produces repetitive text. This reveals a fundamental gap between the model's objective (predict next token) and human judgment of quality.</p>
+</div>
+
+</div><!-- /g2 -->
+
+<!-- STRATEGY TABLE — full width -->
+<div class="card bp" style="margin-top:1.4rem;">
+  <h3>Generation Strategy Comparison — Same Weights, Same Prompt, Different Decoding</h3>
+  <table class="ct">
+    <thead>
+      <tr><th>Strategy</th><th>Settings</th><th>Real output from notebook</th><th>When to use</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Greedy</td>
+        <td style="color:var(--muted);">T=0, argmax</td>
+        <td style="font-style:italic;">"…of being a doctor. I have a dream of being a doctor. I have a dream of being…"</td>
+        <td style="color:var(--muted);">Internal debugging only</td>
+      </tr>
+      <tr>
+        <td>Temperature</td>
+        <td style="color:var(--muted);">T=0.8</td>
+        <td style="font-style:italic;">"…that my wife and I can get married in a beautiful garden surrounded by friends…"</td>
+        <td style="color:var(--muted);">Creative writing, storytelling</td>
+      </tr>
+      <tr>
+        <td>Top-k + Top-p</td>
+        <td style="color:var(--muted);">k=50, p=0.9, T=0.8</td>
+        <td style="font-style:italic;">"…that I will be able to live in a world where I will be able to pursue my passion…"</td>
+        <td><strong style="color:var(--cyan);">Production default — ChatGPT, Claude</strong></td>
+      </tr>
+      <tr>
+        <td>Beam Search</td>
+        <td style="color:var(--muted);">B=3, greedy</td>
+        <td style="font-style:italic;">"…that I will be able to live in a world where I will be able to…" (still loops)</td>
+        <td style="color:var(--muted);">Translation, structured tasks</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="insight i-purple"><strong>The key takeaway:</strong> The model weights are identical across all four rows. Only the decoding algorithm changes. This is why inference-time techniques (sampling strategies, system prompts, constrained generation) are an active research area — they improve output without retraining.</div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     QUESTIONS
+════════════════════════════════════════════ -->
+<div class="phase" style="color:var(--muted);">Questions to Test Your Intuition</div>
+<div class="q-grid">
+
+  <div class="q">
+    <div class="q-tag">Data</div>
+    <p>The model is trained on Harry Potter and never receives any instruction like "learn English grammar." How does it learn grammar, punctuation, and style as a side-effect of predicting the next token?</p>
+    <button class="q-hint-btn">▶ Show hint</button>
+    <div class="q-hint"><div class="q-hint-inner">Grammar is instrumentally useful: predicting "the dog <em>runs</em>" scores lower loss than "the dog <em>run</em>". The model discovers grammatically valid continuations are statistically more likely in the training data — grammar emerges as a compression strategy, never explicitly taught.</div></div>
+  </div>
+
+  <div class="q">
+    <div class="q-tag">Attention</div>
+    <p>In the causal mask, t=0 can only attend to itself (weight = 1.00). t=3 splits attention across all four tokens. Does more context always improve predictions — and what breaks if you reverse the mask?</p>
+    <button class="q-hint-btn">▶ Show hint</button>
+    <div class="q-hint"><div class="q-hint-inner">More context usually helps but not always — early tokens can overfit to spurious past correlations. Reversing the mask lets every token "see the future" during training, but future tokens don't exist at generation time. The train/inference mismatch makes autoregressive generation impossible.</div></div>
+  </div>
+
+  <div class="q">
+    <div class="q-tag">Attention</div>
+    <p>Heads specialise in different relationships (syntax, coreference) without being told to. What mechanism in training causes this specialisation to emerge spontaneously?</p>
+    <button class="q-hint-btn">▶ Show hint</button>
+    <div class="q-hint"><div class="q-hint-inner">Random initialisation seeds each head at a slightly different starting point. Gradient descent amplifies whatever a head is already slightly better at. Once a head captures a pattern, other heads face less gradient pressure to cover it — a feedback loop that drives diversity without any explicit instruction.</div></div>
+  </div>
+
+  <div class="q">
+    <div class="q-tag">Architecture</div>
+    <p>The shape stays (B, T, 768) through all 12 blocks. If the shape doesn't change, what is actually different about the 768 numbers after block 12 versus after block 1?</p>
+    <button class="q-hint-btn">▶ Show hint</button>
+    <div class="q-hint"><div class="q-hint-inner">Same shape, fundamentally different information. Block 1 output: mostly which token is at this position + immediate local context. Block 12 output: abstract concepts, topic, coreference chains, long-range dependencies. The 768 numbers represent a progressively richer semantic encoding of the sequence.</div></div>
+  </div>
+
+  <div class="q">
+    <div class="q-tag">Architecture</div>
+    <p>Weight tying shares the embedding matrix between input and output. These operations seem to do opposite things (IDs → vectors vs vectors → logits). Why does sharing work and improve quality?</p>
+    <button class="q-hint-btn">▶ Show hint</button>
+    <div class="q-hint"><div class="q-hint-inner">"dragon" and "wizard" are near each other in embedding space <em>because</em> they appear in similar contexts. The output head should also score them highly in similar contexts. The shared matrix enforces geometric consistency: the space used to understand words is the same space used to predict them.</div></div>
+  </div>
+
+  <div class="q">
+    <div class="q-tag">Training</div>
+    <p>V0 overfits one batch to loss ≈ 0.01. The full 3-epoch run settles at loss ≈ 2.1. Why is 2.1 not considered a failure — and how would you distinguish capacity-limited from underfitting?</p>
+    <button class="q-hint-btn">▶ Show hint</button>
+    <div class="q-hint"><div class="q-hint-inner">Random guessing from 50,257 tokens gives loss ≈ log(50,257) ≈ 10.8. Loss 2.1 means the model predicts the correct token ≈12× better than chance. To distinguish: if train ≈ val and both high → underfitting (need more capacity/data). If val ≫ train → overfitting (capacity exceeded the dataset).</div></div>
+  </div>
+
+  <div class="q">
+    <div class="q-tag">Training</div>
+    <p>Gradient clipping caps the gradient norm at 1.0. What failure mode does it prevent — and why doesn't simply using a smaller learning rate solve the same problem?</p>
+    <button class="q-hint-btn">▶ Show hint</button>
+    <div class="q-hint"><div class="q-hint-inner">A smaller LR slows ALL updates uniformly — including stable, well-calibrated ones. Gradient clipping only fires on catastrophic spikes (from anomalous batches or numerical edge cases) and leaves normal updates at full speed. It's a targeted guard against explosions, not a global slowdown.</div></div>
+  </div>
+
+  <div class="q">
+    <div class="q-tag">Inference</div>
+    <p>Beam search finds the highest-probability sequence yet still produces repetitive text. What does this reveal about the gap between the training objective and what humans consider "good" text?</p>
+    <button class="q-hint-btn">▶ Show hint</button>
+    <div class="q-hint"><div class="q-hint-inner">The loss never penalised repetition — it only rewarded next-token accuracy. "I have a dream of being a doctor" scored high at training time; repeating it scores high again. High probability ≠ high quality. Bridging this gap requires RLHF or DPO — separate objectives that directly reward human-judged quality.</div></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  SAIR · Module 5 — GPT from Scratch &nbsp;·&nbsp; Notebooks 01–05<br/>
+  Next: Notebook 06 — SFT Text Classification &nbsp;·&nbsp; Notebook 07 — Instruction Following
+</div>
+
+</div>
+
+<script>
+// ── TEMPERATURE SLIDER ──────────────────────────────
+(function () {
+  const logits = [0, -0.94, -1.68, -2.69, -3.39, -4.08];
+  const tokens = ['of', 'that', 'to', 'be', 'a', 'the'];
+  const colors = ['#c084fc', '#a855f7', '#818cf8', '#6366f1', '#4f46e5', '#3b3a9e'];
+  function softmax(arr) {
+    const m = Math.max(...arr), e = arr.map(x => Math.exp(x - m)), s = e.reduce((a,b)=>a+b,0);
+    return e.map(x => x / s);
+  }
+  function desc(t) {
+    if (t < 0.35) return 'Near-deterministic — always picks the same top token';
+    if (t < 0.7)  return 'Sharp & confident — low variety, low errors';
+    if (t < 1.15) return 'Balanced — raw model distribution (ChatGPT default ≈ 0.8)';
+    if (t < 1.75) return 'Creative & varied — occasional surprising choices';
+    return 'Near-random noise — T > 2 flattens distribution completely';
+  }
+  function render(t) {
+    const probs = softmax(logits.map(l => l / t));
+    const bars = document.getElementById('temp-bars');
+    if (!bars) return;
+    bars.innerHTML = '';
+    probs.forEach((p, i) => {
+      const pct = Math.round(p * 100);
+      const row = document.createElement('div');
+      row.className = 'temp-bar-row';
+      row.innerHTML =
+        `<span class="temp-bar-label">${tokens[i]}</span>` +
+        `<div class="temp-bar-track"><div class="temp-bar-fill" style="width:${pct}%;background:${colors[i]};min-width:${p>0.012?'48px':'2px'};"><span class="temp-bar-pct">${pct>=3?pct+'%':''}</span></div></div>` +
+        `<span class="temp-bar-num">${p.toFixed(3)}</span>`;
+      bars.appendChild(row);
+    });
+    const tv = document.getElementById('temp-val');
+    const td = document.getElementById('temp-desc');
+    if (tv) tv.textContent = parseFloat(t).toFixed(2);
+    if (td) td.textContent = desc(t);
+  }
+  const sl = document.getElementById('temp-slider');
+  if (sl) { sl.addEventListener('input', () => render(parseFloat(sl.value))); render(1.0); }
+})();
+
+// ── STICKY NAV SCROLL SPY ──────────────────────────
+(function () {
+  const ids = ['nb1','nb2','nb3','nb4','nb5'];
+  const items = document.querySelectorAll('.snav-item');
+  if (!items.length) return;
+  function update() {
+    let cur = ids[0];
+    ids.forEach(id => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top < window.innerHeight * 0.42) cur = id; });
+    items.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+  }
+  window.addEventListener('scroll', update, {passive:true}); update();
+})();
+
+// ── HEATMAP — row/col highlight + tooltip ──────────
+(function () {
+  const table = document.getElementById('hm-table');
+  if (!table) return;
+  const rowL = ['Your','journey','starts','with','one','step'];
+  const colL = ['Your','journey','starts','with','one','step'];
+  const tip = document.createElement('div');
+  Object.assign(tip.style, {position:'fixed',background:'#1e2440',border:'1px solid #3b4a80',borderRadius:'8px',padding:'.42rem .8rem',fontSize:'.82rem',color:'#e2e8f0',pointerEvents:'none',zIndex:'300',display:'none',lineHeight:'1.5',boxShadow:'0 4px 16px #00000066'});
+  document.body.appendChild(tip);
+  const allCells = [...table.querySelectorAll('td')];
+  allCells.forEach((td, idx) => {
+    const row = Math.floor(idx / 6), col = idx % 6, val = td.textContent.trim();
+    td.addEventListener('mouseenter', () => {
+      allCells.forEach((c, ci) => {
+        const cr = Math.floor(ci/6), cc = ci%6;
+        c.style.filter = (cr===row||cc===col) ? 'brightness(1.45)' : 'brightness(0.38)';
+        c.style.transition = 'filter .1s';
+      });
+      tip.innerHTML = `<span style="color:#818cf8;font-weight:700">${rowL[row]}</span> attends to <span style="color:#34d399;font-weight:700">${colL[col]}</span><br/>weight = <strong>${val}</strong>`;
+      tip.style.display = 'block';
+    });
+    td.addEventListener('mousemove', e => {
+      tip.style.left = Math.min(e.clientX+14, window.innerWidth-265)+'px';
+      tip.style.top  = (e.clientY-52)+'px';
+    });
+    td.addEventListener('mouseleave', () => { allCells.forEach(c => c.style.filter=''); tip.style.display='none'; });
+  });
+})();
+
+// ── QUESTION HINTS ─────────────────────────────────
+(function () {
+  document.querySelectorAll('.q-hint-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const hint = btn.nextElementSibling;
+      const inner = hint.querySelector('.q-hint-inner');
+      const open = hint.style.maxHeight && hint.style.maxHeight !== '0px';
+      hint.style.maxHeight = open ? '0px' : (inner.offsetHeight + 24) + 'px';
+      btn.textContent = open ? '▶ Show hint' : '▼ Hide hint';
+    });
+  });
+})();
+
+// ── ANIMATED SLIDING WINDOW ─────────────────────────
+(function () {
+  let swSvg = null;
+  document.querySelectorAll('svg').forEach(s => { if (s.innerHTML.includes('stride=128')) swSvg = s; });
+  if (!swSvg) return;
+
+  const TOTAL = 15, WIN = 4;
+  let pos = 0, timer = null;
+
+  const widget = document.createElement('div');
+  widget.style.cssText = 'background:#13162a;border-radius:10px;padding:1.1rem 1.3rem;margin-bottom:.7rem;';
+  widget.innerHTML =
+    `<div style="display:flex;gap:.45rem;align-items:center;margin-bottom:.85rem;flex-wrap:wrap;">
+       <button id="sw-play-btn" style="background:#818cf8;color:#fff;border:none;border-radius:8px;padding:.38rem 1.1rem;cursor:pointer;font-weight:700;font-size:.85rem;">▶ Play</button>
+       <button id="sw-step-btn" style="background:#1e2440;color:#e2e8f0;border:1px solid #252d52;border-radius:8px;padding:.38rem .85rem;cursor:pointer;font-size:.85rem;">Step →</button>
+       <button id="sw-reset-btn" style="background:#1e2440;color:#e2e8f0;border:1px solid #252d52;border-radius:8px;padding:.38rem .85rem;cursor:pointer;font-size:.85rem;">↺ Reset</button>
+       <span id="sw-info" style="font-size:.8rem;color:#64748b;margin-left:.3rem;"></span>
+     </div>
+     <div id="sw-tokens" style="display:flex;gap:5px;flex-wrap:wrap;"></div>
+     <div style="display:flex;gap:1rem;margin-top:.65rem;font-size:.76rem;color:#64748b;flex-wrap:wrap;">
+       <span><span style="display:inline-block;width:11px;height:11px;background:#1e3a8a;border:1.5px solid #3b82f6;border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Context window</span>
+       <span><span style="display:inline-block;width:11px;height:11px;background:#064e3b;border:1.5px solid #10b981;border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Predict next</span>
+       <span><span style="display:inline-block;width:11px;height:11px;background:#0d0f1a;border:1.5px solid #1e2440;border-radius:2px;vertical-align:middle;margin-right:3px;"></span>Past / upcoming</span>
+     </div>`;
+
+  swSvg.parentNode.insertBefore(widget, swSvg);
+  swSvg.style.display = 'none';
+
+  function renderSW() {
+    const c = document.getElementById('sw-tokens'), info = document.getElementById('sw-info');
+    if (!c) return;
+    c.innerHTML = '';
+    for (let i = 0; i < TOTAL; i++) {
+      const d = document.createElement('div');
+      d.style.cssText = 'width:38px;height:40px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;border:2px solid;transition:all .22s;';
+      if (i >= pos && i < pos + WIN)       Object.assign(d.style, {background:'#1e3a8a',borderColor:'#3b82f6',color:'#93c5fd',transform:'scale(1.06)'});
+      else if (i === pos + WIN)            Object.assign(d.style, {background:'#064e3b',borderColor:'#10b981',color:'#6ee7b7',transform:'scale(1.08)',boxShadow:'0 0 10px rgba(52,211,153,.4)'});
+      else if (i < pos)                   Object.assign(d.style, {background:'#0a0c16',borderColor:'#12151f',color:'#1e2440'});
+      else                                Object.assign(d.style, {background:'#13162a',borderColor:'#1e2440',color:'#374151'});
+      d.textContent = i + 1;
+      c.appendChild(d);
+    }
+    if (info) info.textContent = `context [${pos+1}–${pos+WIN}] → predict token ${pos+WIN+1}`;
+  }
+
+  function advance() { pos = (pos + 1) % (TOTAL - WIN); renderSW(); }
+
+  const pb = document.getElementById('sw-play-btn');
+  const sb = document.getElementById('sw-step-btn');
+  const rb = document.getElementById('sw-reset-btn');
+  if (pb) pb.addEventListener('click', () => {
+    if (timer) { clearInterval(timer); timer = null; pb.textContent = '▶ Play'; }
+    else       { timer = setInterval(advance, 750); pb.textContent = '⏸ Pause'; }
+  });
+  if (sb) sb.addEventListener('click', () => { if(timer){clearInterval(timer);timer=null;if(pb)pb.textContent='▶ Play';} advance(); });
+  if (rb) rb.addEventListener('click', () => { if(timer){clearInterval(timer);timer=null;if(pb)pb.textContent='▶ Play';} pos=0; renderSW(); });
+  renderSW();
+})();
+
+// ── INTERACTIVE CAUSAL MASK ─────────────────────────
+(function () {
+  let cmSvg = null;
+  document.querySelectorAll('svg').forEach(s => { if (s.innerHTML.includes('blue triangle')) cmSvg = s; });
+  if (!cmSvg) return;
+
+  const weights = [
+    [1.00, null, null, null],
+    [0.57, 0.43, null, null],
+    [0.38, 0.23, 0.38, null],
+    [0.37, 0.21, 0.18, 0.24],
+  ];
+  const labels = ['t=0','t=1','t=2','t=3'];
+
+  const widget = document.createElement('div');
+  widget.style.cssText = 'margin-bottom:.5rem;';
+
+  let html = `<p style="font-size:.78rem;color:#64748b;margin-bottom:.5rem;">Hover a row — see which tokens that position is allowed to attend to</p>`;
+  html += `<div style="display:inline-grid;grid-template-columns:auto repeat(4,56px);gap:3px;align-items:center;">`;
+  html += `<div></div>`;
+  labels.forEach(l => { html += `<div style="text-align:center;font-size:.78rem;color:#64748b;font-weight:700;padding:.2rem 0;">${l}</div>`; });
+  weights.forEach((row, ri) => {
+    html += `<div style="font-size:.78rem;color:#64748b;font-weight:700;text-align:right;padding-right:.45rem;white-space:nowrap;">${labels[ri]}</div>`;
+    row.forEach((v, ci) => {
+      const vis = v !== null;
+      const bg  = vis ? `rgba(30,58,138,${0.28 + v * 0.68})` : '#0c0f1a';
+      const bc  = vis ? '#3b82f6' : '#1a1f38';
+      const col = vis ? '#93c5fd' : '#253051';
+      html += `<div class="cm-cell" data-r="${ri}" data-c="${ci}" style="width:56px;height:46px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.84rem;font-weight:700;border:2px solid ${bc};background:${bg};color:${col};cursor:default;transition:all .16s;">${vis ? v.toFixed(2) : '−∞'}</div>`;
+    });
+  });
+  html += `</div>`;
+  html += `<div id="cm-msg" style="font-size:.8rem;color:#64748b;min-height:1.35em;margin-top:.45rem;"></div>`;
+  widget.innerHTML = html;
+
+  cmSvg.parentNode.insertBefore(widget, cmSvg);
+  cmSvg.style.display = 'none';
+
+  widget.querySelectorAll('.cm-cell').forEach(cell => {
+    const ri = parseInt(cell.dataset.r);
+    cell.addEventListener('mouseenter', () => {
+      widget.querySelectorAll('.cm-cell').forEach(c => {
+        const cr = parseInt(c.dataset.r), cc = parseInt(c.dataset.c);
+        if (cr === ri) {
+          if (cc <= ri) { c.style.filter='brightness(1.6)'; c.style.transform='scale(1.1)'; c.style.boxShadow='0 0 10px rgba(99,102,241,.5)'; }
+          else          { c.style.filter='brightness(0.3)'; c.style.transform=''; c.style.boxShadow=''; }
+        } else {
+          c.style.filter='brightness(0.38)'; c.style.transform=''; c.style.boxShadow='';
+        }
+      });
+      const msg = document.getElementById('cm-msg');
+      const sees = ri + 1;
+      if (msg) msg.innerHTML = `<strong style="color:#818cf8">t=${ri}</strong> attends to ${sees} token${ri?'s':''} (t=0 through t=${ri}) — future positions are set to −∞`;
+    });
+    cell.addEventListener('mouseleave', () => {
+      widget.querySelectorAll('.cm-cell').forEach(c => { c.style.filter=''; c.style.transform=''; c.style.boxShadow=''; });
+      const msg = document.getElementById('cm-msg');
+      if (msg) msg.textContent = '';
+    });
+  });
+})();
+
+// ── TRAINING LOOP STEP HIGHLIGHT ────────────────────
+(function () {
+  const details = {
+    '①': {color:'#3b82f6', text:'<strong>Forward Pass:</strong> Token IDs go in, logits come out. Every weight fires once. Output shape: (B, T, 50257) — one score per vocabulary entry per token position.'},
+    '②': {color:'#d97706', text:'<strong>Cross-Entropy Loss:</strong> For each position, softmax the logits, then −log(prob of correct token). At random init, correct token has ~1/50257 chance → loss ≈ log(50257) ≈ 9.9.'},
+    '③': {color:'#dc2626', text:'<strong>Backward Pass:</strong> PyTorch traces every operation from loss back through all 124M parameters using the chain rule. Each weight gets a gradient: "if I increase this weight by ε, loss changes by gradient × ε."'},
+    '④': {color:'#10b981', text:'<strong>Optimizer Step:</strong> AdamW updates each weight: w ← w − lr × gradient. With cosine LR schedule, learning rate starts at 6e-4, warms up, then decays smoothly. After millions of steps, weights encode language patterns.'},
+  };
+  let tlSvg = null;
+  document.querySelectorAll('svg').forEach(s => { if (s.innerHTML.includes('Forward Pass')) tlSvg = s; });
+  if (!tlSvg) return;
+
+  const infoBox = document.createElement('div');
+  infoBox.style.cssText = 'background:#13162a;border-radius:10px;padding:.9rem 1.1rem;margin-top:.6rem;font-size:.85rem;color:#94a3b8;min-height:3em;line-height:1.6;border-left:3px solid #4f46e5;display:none;';
+  tlSvg.parentNode.insertBefore(infoBox, tlSvg.nextSibling);
+
+  // button row below SVG
+  const btnRow = document.createElement('div');
+  btnRow.style.cssText = 'display:flex;gap:.4rem;margin-top:.6rem;flex-wrap:wrap;';
+  Object.entries(details).forEach(([label, d]) => {
+    const btn = document.createElement('button');
+    btn.style.cssText = `background:#1e2440;color:#e2e8f0;border:2px solid ${d.color};border-radius:8px;padding:.35rem .85rem;cursor:pointer;font-size:.83rem;font-weight:700;transition:all .18s;`;
+    btn.textContent = label;
+    btn.addEventListener('click', () => {
+      infoBox.innerHTML = d.text;
+      infoBox.style.borderLeftColor = d.color;
+      infoBox.style.display = 'block';
+      btnRow.querySelectorAll('button').forEach(b => b.style.background = '#1e2440');
+      btn.style.background = d.color + '33';
+    });
+    btnRow.appendChild(btn);
+  });
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '✕';
+  closeBtn.style.cssText = 'background:none;color:#64748b;border:none;cursor:pointer;font-size:.9rem;margin-left:auto;';
+  closeBtn.addEventListener('click', () => { infoBox.style.display='none'; btnRow.querySelectorAll('button').forEach(b=>b.style.background='#1e2440'); });
+  btnRow.appendChild(closeBtn);
+  tlSvg.parentNode.insertBefore(btnRow, tlSvg.nextSibling);
+})();
+</script>
+</body>
+</html>
