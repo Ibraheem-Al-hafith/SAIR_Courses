@@ -1,93 +1,161 @@
-# 🏥 Medical Insurance Cost Prediction
-
-This project builds a machine learning model to predict medical insurance charges based on personal and health-related attributes. It demonstrates a complete ML workflow including preprocessing, training, evaluation, and model saving.
-
----
+# 🚀 Employee Attrition Prediction (End-to-End ML Project)
 
 ## 📌 Overview
 
-The objective is to predict **insurance charges (`charges`)** using the following features:
-
-- Age
-- Sex
-- BMI
-- Number of children
-- Smoking status
-- Region
-
-The project uses a **Random Forest Regressor** to model the relationship between these variables and insurance costs.
+This project aims to predict employee attrition using machine learning techniques.
+The goal is to build a robust model that can accurately identify employees likely to leave the company, with a strong focus on handling class imbalance.
 
 ---
 
-## 📂 Dataset
+## 🎯 Objectives
 
-The dataset used is:
-
-- `insurance.csv`
-
-It contains structured tabular data with both numerical and categorical features commonly used in regression problems.
-
----
-
-## ⚙️ Data Preprocessing
-
-The preprocessing pipeline includes:
-
-- Encoding categorical variables:
-  - `sex`: male → 1, female → 0
-  - `smoker`: yes → 1, no → 0
-
-- One-hot encoding:
-  - `region`
-
-- Ensuring all features are numeric and ready for model input
+- Analyze employee data and identify key patterns
+- Handle class imbalance effectively
+- Build and compare multiple machine learning models
+- Optimize performance using hyperparameter tuning
+- Evaluate models using appropriate metrics (F1-score)
 
 ---
 
-## 🧠 Model
+## 📊 Dataset
 
-The model used in this project:
+The dataset contains employee-related features such as:
 
-- `RandomForestRegressor` (from scikit-learn)
+- Demographics (Age, Gender, Education)
+- Job-related information (Department, Job Role, Income)
+- Work behavior (OverTime, Years at Company)
 
-### Training Details:
+Target variable:
 
-- Train/Test Split: 80/20
-- Random State: 42
-
----
-
-## 📊 Evaluation
-
-The model performance is evaluated using:
-
-- **Mean Squared Error (MSE)**
-- **R² Score**
-
-These metrics help measure prediction accuracy and model fit.
+- **Attrition** (0 = No, 1 = Yes)
 
 ---
 
-## 📈 Experiment Tracking
+## ⚠️ Challenges
 
-Experiment tracking is handled using:
-
-- `mlflow`
-
-Tracked elements include:
-
-- Model parameters
-- Evaluation metrics (MSE, R²)
-- Model artifacts
+- Highly imbalanced dataset
+- Mixed feature types (categorical & numerical)
+- Potential noisy and redundant features
 
 ---
 
-## 💾 Model Saving
+## 🛠️ Approach
 
-The trained model is saved using:
+### 1️⃣ Data Preprocessing
 
-```python
-joblib.dump(model, "model.pkl")
+- Removed irrelevant and low-variance features
+- Handled missing values
+- Encoded categorical variables using One-Hot Encoding
 
+---
 
-pip install pandas numpy matplotlib seaborn scikit-learn mlflow joblib
+### 2️⃣ Handling Class Imbalance
+
+Tested multiple techniques:
+
+- Random Upsampling
+- SMOTE
+- ✅ **SMOTE + Tomek Links (Final Choice)**
+
+This combination improved class separation and reduced noise.
+
+---
+
+### 3️⃣ Feature Engineering
+
+- Created new features (ratios & interactions)
+- Reduced dimensionality
+- Improved model learning capability
+
+---
+
+### 4️⃣ Modeling
+
+Trained multiple models:
+
+- Logistic Regression
+- Random Forest
+- Gradient Boosting
+- XGBoost
+
+---
+
+### 5️⃣ Hyperparameter Tuning
+
+- Used **RandomizedSearchCV**
+- Optimized model performance
+- Reduced overfitting
+
+---
+
+### 6️⃣ Evaluation Metrics
+
+Due to class imbalance, the primary metric used:
+
+- ✅ **F1-Score (Weighted)**
+
+Also evaluated using:
+
+- Accuracy
+- ROC-AUC
+
+---
+
+## 📈 Results
+
+- Best performance achieved using:
+  - **SMOTE + Tomek Links**
+  - Tuned ensemble models
+
+- Significant improvement in detecting the minority class
+- Balanced trade-off between precision and recall
+
+---
+
+## 🧠 Key Insights
+
+- Employees working overtime are more likely to leave
+- Some demographic features have limited predictive power
+- Feature selection improves model stability and performance
+
+---
+
+## ⚖️ Trade-offs
+
+- Resampling increases computational cost
+- Feature removal may drop useful information
+- Model performance depends on dataset quality
+
+---
+
+## 🚀 Future Improvements
+
+- Apply advanced optimization (Optuna / Bayesian tuning)
+- Use SHAP for model interpretability
+- Try advanced models (LightGBM, CatBoost)
+- Deploy using Streamlit or FastAPI
+
+---
+
+## 🏁 Conclusion
+
+This project demonstrates the importance of:
+
+- Handling imbalanced data properly
+- Thoughtful feature engineering
+- Careful model evaluation
+
+A well-structured ML pipeline can significantly improve real-world predictive performance.
+
+---
+
+## 📎 Kaggle Notebook
+
+👉 https://www.kaggle.com/code/ahmedalsafiadlan/employee-attrition-prediction-with-smote-tomek
+
+---
+
+## 👨‍💻 Author
+
+Ahmed Alsafi
+Data Science Student
