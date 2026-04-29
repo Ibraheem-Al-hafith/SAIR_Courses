@@ -142,15 +142,12 @@ with tab2:
         lat = col_b.number_input("Latitude", value=38.99, format="%.6f")
         lon = col_a.number_input("Longitude", value=-1.85, format="%.6f")
 
-        # اختيار التاريخ (افتراضياً تاريخ اليوم)
         target_date = st.date_input("Prediction Date", datetime.date.today())
 
         if st.form_submit_button("Run AI Analysis"):
-            # --- استخراج الميزات الزمنية كما في كود التدريب ---
             day_of_year = target_date.timetuple().tm_yday
             day_of_week = target_date.weekday()
 
-            # تجهيز البيانات في DataFrame بنفس ترتيب أعمدة التدريب
             input_data = pd.DataFrame(
                 [[lat, lon, brand, day_of_year, day_of_week]],
                 columns=["latitud", "longitud", "rotulo", "day_of_year", "day_of_week"],
