@@ -45,8 +45,8 @@
 | 1 — Regression | `1_Regression/` | [README](1_Regression/README.md) | ✅ Complete |
 | 2 — Classification & Pipelines | `2_Classification/` | [README](2_Classification/README.md) | ✅ Complete |
 | 3 — Neural Networks from Scratch | `3_Neural%20Network%20from%20scratch/` | [README](3_Neural%20Network%20from%20scratch/README.md) | ✅ Complete |
-| 4 — Applied Deep Learning with PyTorch | `4_Applied Deep Learning with PyTorch/` | [README](4_Applied%20Deep%20Learning%20with%20PyTorch/README.md) | ⚡ Active (75%) |
-| 5 — GPT from Scratch | `5_GPT from scratch/` | [README](5_GPT%20from%20scratch/README.md) · [⚡ Capstone](https://github.com/SAIR-Org/miniGPT) | 🔥 In Progress |
+| 4 — Applied Deep Learning with PyTorch | `4_Applied Deep Learning with PyTorch/` | [README](4_Applied%20Deep%20Learning%20with%20PyTorch/README.md) | ✅ Complete |
+| 5 — GPT from Scratch | `5_GPT from scratch/` | [README](5_GPT%20from%20scratch/README.md) · [🏆 Capstone](https://github.com/SAIR-Org/miniGPT) | ✅ Complete |
 | 6 — MLOps | `6_MLOps/` | — | 🔜 Incoming |
 
 ---
@@ -114,8 +114,8 @@
 │   ├── 🎯 Module 2: Production ML
 │   ├── 🧠 Module 3: Neural Networks
 │   ├── 🔥 Module 4: Deep Learning ✅
-│   ├── 🧠 Module 5: GPT from Scratch (Current)
-│   ├── ⚙️ Module 6: MLOps (Incoming)
+│   ├── 🧠 Module 5: GPT from Scratch ✅
+│   ├── ⚙️ Module 6: MLOps (Current)
 │   └── 💎 Capstone: Real-World Project
 │
 ├── 🚀 SAIR Mid (Planned Next Stage)
@@ -220,22 +220,23 @@
 
 <div align="center">
 
-### **🟢 Now Building: A GPT Language Model — From a Blank File**
+### **✅ Module 5 Complete: GPT from Scratch**
 
-**Where we are now:** Implementing every component of a transformer LLM using only PyTorch  
-**Textbook:** *Build a Large Language Model (From Scratch)* — Sebastian Raschka (read in parallel)
+**What we built:** A full GPT-2 language model from a blank file using only PyTorch  
+**Textbook:** *Build a Large Language Model (From Scratch)* — Sebastian Raschka  
+**Capstone:** [miniGPT](https://github.com/SAIR-Org/miniGPT) — full-stack CLI + Modal cloud training + web UI
 
 <table>
 <tr>
 <td width="60%" align="center">
 <h4>📊 Module Progress</h4>
 <div style="background: #f5f5f5; padding: 10px; border-radius: 8px;">
-<div style="background: linear-gradient(90deg, #4caf50 40%, #e0e0e0 60%); height: 20px; border-radius: 10px;"></div>
-<p style="margin-top: 8px;"><strong>Notebooks 1–2 of 5 Complete (+ 3 Appendixes)</strong></p>
+<div style="background: linear-gradient(90deg, #4caf50 100%, #e0e0e0 0%); height: 20px; border-radius: 10px;"></div>
+<p style="margin-top: 8px;"><strong>All 5 Notebooks + 3 Appendixes Complete</strong></p>
 </div>
 </td>
 <td width="40%" align="center">
-<h4>🧠 What We're Building</h4>
+<h4>🧠 What We Built</h4>
 <p>🔤 Custom tokenizer + data pipeline<br/>
 👁️ Multi-head causal attention<br/>
 🏗️ Full GPT-2 architecture (124M params)<br/>
