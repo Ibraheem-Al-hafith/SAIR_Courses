@@ -20,7 +20,7 @@
 </a>
 </td>
 <td align="center">
-<img src="https://img.shields.io/badge/NOW_LEARNING-Transformers_&_GPT-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white" alt="Current Module"/>
+<img src="https://img.shields.io/badge/NOW_LEARNING-MLOps_&_Deployment-9C27B0?style=for-the-badge&logo=pytorch&logoColor=white" alt="Current Module"/>
 </td>
 <td align="center">
 <img src="https://img.shields.io/badge/ENROLLMENT-OPEN-brightgreen?style=for-the-badge" alt="Status"/>
@@ -185,19 +185,19 @@
 <td>Vision apps, NLP pipelines, fine-tuned transformers</td>
 <td>Modern AI development</td>
 </tr>
-<tr style="background: linear-gradient(90deg, #fff3cd 0%, #fff8e1 100%); border-left: 4px solid #ffc107;">
+<tr>
 <td align="center"><strong>5 🧠</strong></td>
 <td><strong>GPT from Scratch</strong><br/><em>Attention, transformer architecture, SFT</em></td>
 <td align="center">4-6 weeks</td>
-<td align="center">⚡ <strong>LIVE NOW</strong></td>
+<td align="center">✅ <strong>Complete</strong></td>
 <td>GPT language model, instruction-following fine-tuning</td>
 <td>LLM fundamentals</td>
 </tr>
-<tr>
+<tr style="background: linear-gradient(90deg, #fff3cd 0%, #fff8e1 100%); border-left: 4px solid #ffc107;">
 <td align="center"><strong>6 ⚙️</strong></td>
 <td><strong>MLOps</strong><br/><em>CI/CD, monitoring, serving, infrastructure</em></td>
 <td align="center">4-6 weeks</td>
-<td align="center">🔜 <strong>Incoming</strong></td>
+<td align="center">⚡ <strong>LIVE NOW</strong></td>
 <td>Deployed ML system with monitoring</td>
 <td>Production operations</td>
 </tr>
@@ -216,7 +216,7 @@
 
 ---
 
-## 🔥 **Jump Into Our Current Module: GPT from Scratch**
+## ✅ **Module 5 Complete: GPT from Scratch**
 
 <div align="center">
 
