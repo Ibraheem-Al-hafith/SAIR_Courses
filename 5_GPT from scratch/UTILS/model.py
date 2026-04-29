@@ -1,5 +1,16 @@
+"""
+UTILS/model.py — GPT-2 importable implementation
+SAIR Module 5 | Used by: 4.TRAIN, A1.SFT_Text_Classification, A2.SFT_Instruction_Following
+
+Config schema expected by this module:
+    vocab_size, context_length, emb_dim, n_heads, n_layers, drop_rate, qkv_bias
+
+Note: the standalone teaching script is at the module root (model.py).
+That file uses "dropout" instead of "drop_rate" and includes a self-test.
+"""
 import torch.nn as nn
-import torch 
+import torch
+
 
 class MultiHeadAttention(nn.Module):
     def __init__(self, d_in, d_out, context_length, dropout, num_heads, qkv_bias=False):

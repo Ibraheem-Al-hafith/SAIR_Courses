@@ -1,9 +1,15 @@
 """
-model.py  —  GPT-2 from Scratch
+model.py  —  GPT-2 from Scratch (standalone teaching script)
 SAIR Module 5: GPT from Scratch | Lecture 3
 
 All classes a student needs to understand and implement GPT-2 Small (124M params).
 Run this file directly to verify everything works: `uv run python model.py`
+
+Config schema used here:  "dropout", "n_heads", "emb_dim", "n_layers", "qkv_bias"
+
+Note: the import-ready version for training and fine-tuning notebooks lives at
+UTILS/model.py — it uses "drop_rate" instead of "dropout" and is imported by
+4.TRAIN, A1.SFT_Text_Classification, and A2.SFT_Instruction_Following.
 """
 import torch
 import torch.nn as nn
